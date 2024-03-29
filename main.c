@@ -299,6 +299,102 @@ void test_getSquareOfMatrixIfSymmetric_single(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//5 номер
+
+long long getSum(int *a, int n){
+    long long sum = 0;
+    for (int i = 0; i < n; i++){
+        sum = sum + a[i];
+    }
+    return sum;
+}
+
+bool isUnique(long long *a, int n) {
+    long long sums[n];
+
+    // Вычислим суммы элементов строк матрицы
+    for (int i = 0; i < n; i++) {
+        sums[i] = 0;
+        for (int j = 0; j < n; j++) {
+            sums[i] += a[i * n + j];
+        }
+    }
+
+    // Проверим, что все суммы различны
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (sums[i] == sums[j]) {
+                return false; // суммы одинаковы возвращаем false
+            }
+        }
+    }
+
+    return true;
+}
+
+void transposeIfMatrixHasNotEqualSumOfRows(matrix m){
+    long long arr[m.nCols];
+    for(int i = 0; i < m.nCols; i++){
+        int* Row = m.values[i];
+        arr[i] = getSum(Row, m.nCols);
+    }
+    if(!isUnique(arr, m.nCols)){
+        fprintf(stderr, "sum is not unique");
+        return;
+    }
+    transposeSquareMatrix(&m);
+}
+//обычный случай
+void test_transposeIfMatrixHasNotEqualSumOfRows_base(){
+    int arr[]= {54,23,57,58,
+                1,63,1,1,
+                35,2,69,45,
+                26,55,16,99};
+    matrix m = createMatrixFromArray(arr, 4, 4);
+    int expected_arr[]=    {54,1,35,26,
+                            23,63,2,55,
+                            57,1,69,16,
+                            58,1,45,99};
+    matrix expected_m = createMatrixFromArray(expected_arr, 4, 4);
+    transposeIfMatrixHasNotEqualSumOfRows(m);
+    assert(areTwoMatricesEqual(&m,&expected_m));
+    freeMemMatrix(&expected_m);
+    freeMemMatrix(&m);
+}
+//если симетричная
+void test_transposeIfMatrixHasNotEqualSumOfRows_IfSymmetric(){
+    int arr[]= {54,1,35,26,
+                1,63,2,55,
+                35,2,69,16,
+                26,55,16,99};
+    matrix m = createMatrixFromArray(arr, 4, 4);
+    int expected_arr[]=    {54,1,35,26,
+                            1,63,2,55,
+                            35,2,69,16,
+                            26,55,16,99};
+    matrix expected_m = createMatrixFromArray(expected_arr, 4, 4);
+    transposeIfMatrixHasNotEqualSumOfRows(m);
+    assert(areTwoMatricesEqual(&m,&expected_m));
+    freeMemMatrix(&expected_m);
+    freeMemMatrix(&m);
+}
+
+
 void test_matrix() {
     test_change_min_max_base();
     test_change_min_max_oneRow();
@@ -309,7 +405,11 @@ void test_matrix() {
     test_sortColsByMinElement_base();
     test_sortColsByMinElement_alreadyOrder();
     test_sortColsByMinElement_moreMin();
-
+    test_getSquareOfMatrixIfSymmetric_base();
+    test_getSquareOfMatrixIfSymmetric_zero();
+    test_getSquareOfMatrixIfSymmetric_single();
+    test_transposeIfMatrixHasNotEqualSumOfRows_base();
+    test_transposeIfMatrixHasNotEqualSumOfRows_IfSymmetric();
 }
 
 int main() {
