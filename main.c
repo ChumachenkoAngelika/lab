@@ -699,6 +699,92 @@ void test_sortByDistances_alreadySort(){
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+//номер 10
+int countNUnique(long long *arr, int n){
+    for (int i = 0; i < n; i++) {
+        for (int j = i; j < n; j++) {
+            if (arr[i] > arr[j]) {
+
+                long long temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+    int ans = 1;
+    for(int i = 0; i < n-1; i++){
+        if(arr[i] != arr[i+1]){
+            ans++;
+        }
+    }
+    return ans;
+}
+int countEqClassesByRowsSum(matrix m){
+    long long arr[m.nRows];
+    for(int i = 0; i < m.nRows; i++){
+        arr[i] = 0;
+        for (int j = 0; j < m.nCols; j++){
+            arr[i] += m.values[i][j];
+        }
+    }
+    return countNUnique(arr, m.nRows);
+}
+//обычный тест, все суммы строк различны
+void test_countEqClassesByRowsSum_base(){
+    int arr[]= {22,5,
+                6,12,
+                3,1,
+                1,1,
+                10,1,
+                5,2,
+                6,0,
+                0,0};
+    matrix m = createMatrixFromArray(arr, 8, 2);
+    assert(countEqClassesByRowsSum(m) == 8);
+    freeMemMatrix(&m);
+}
+//используя INT_MAX
+void test_countEqClassesByRowsSum_INT_MAX(){
+    int arr[]= {22,INT_MAX,
+                INT_MAX,12,
+                3,1,
+                INT_MAX,1,
+                10,1,
+                5,2,
+                6,INT_MAX,
+                0,INT_MAX};
+    matrix m = createMatrixFromArray(arr, 8, 2);
+    assert(countEqClassesByRowsSum(m) == 8);
+    freeMemMatrix(&m);
+}
+
+//нет уникальных
+void test_countEqClassesByRowsSum_ALLequale(){
+    int arr[]= {1,INT_MAX,
+                INT_MAX,1,
+                INT_MAX,1,
+                INT_MAX,1,
+                INT_MAX,1,
+                INT_MAX,1,
+                INT_MAX,1,
+                INT_MAX,1};
+    matrix m = createMatrixFromArray(arr, 8, 2);
+    assert(countEqClassesByRowsSum(m) == 1);
+    freeMemMatrix(&m);
+}
+
 void test_matrix() {
     test_change_min_max_base();
     test_change_min_max_oneRow();
@@ -725,7 +811,9 @@ void test_matrix() {
     test_getMinInArea_inSecondRow();
     test_sortByDistances_equaleDist();
     test_sortByDistances_alreadySort();
-
+    test_countEqClassesByRowsSum_base();
+    test_countEqClassesByRowsSum_INT_MAX();
+    test_countEqClassesByRowsSum_ALLequale();
 }
 int main() {
     test_matrix();
