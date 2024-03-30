@@ -1,6 +1,7 @@
 #include "libs/data_structures/matrix/matrix.h"
 #include <assert.h>
 #include <stdio.h>
+#include <math.h>
 
 //1 номер
 void test_change_min_max_base() {
@@ -616,8 +617,86 @@ void test_getMinInArea_inSecondRow(){
 
 
 
+//9 номер
+float getDistance(int *a, int n){
+    float distance;
+    for(int i = 0; i < n; i++){
+        distance += a[i]*a[i];
+    }
+    return sqrtf(distance);
+}
+void insertionSortRowsMatrixByRowCriteriaF(matrix m,float (*criteria)(int *, int)){
+    float arr[m.nRows];
+    for(int i = 0; i < m.nRows; i++){
+        arr[i] = criteria(m.values[i], m.nCols);
+        printf("");
+    }
+    for (int i = 0; i < m.nRows; i++) {
+        for (int j = i; j < m.nCols; j++) {
+            if (arr[i] > arr[j]) {
+                float temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                swapRows(&m, i, j);
+            }
+        }
+    }
+}
 
-
+void sortByDistances(matrix m){
+    insertionSortRowsMatrixByRowCriteriaF(m, getDistance);
+}
+//обычный случай
+void test_sortByDistances_base(){
+    int arr[]= {3,3,3,1,
+                1,1,1,1,
+                2,2,2,2,
+                0,1,3,4};
+    matrix m = createMatrixFromArray(arr, 4, 4);
+    int expected_a[]= {1,1,1,1,
+                       2,2,2,2,
+                       0,1,3,4,
+                       3,3,3,1};
+    matrix expected_m = createMatrixFromArray(expected_a, 4, 4);
+    sortByDistances(m);
+    assert(areTwoMatricesEqual(&m, &expected_m));
+    freeMemMatrix(&expected_m);
+    freeMemMatrix(&m);
+}
+//одинаковые дистанции
+void test_sortByDistances_equaleDist(){
+    int arr[]= {3,3,3,1,
+                1,1,1,0,
+                0,1,1,1,
+                0,1,3,4};
+    matrix m = createMatrixFromArray(arr, 4, 4);
+    int expected_a[]= {1,1,1,0,
+                       0,1,1,1,
+                       0,1,3,4,
+                       3,3,3,1};
+    matrix expected_m = createMatrixFromArray(expected_a, 4, 4);
+    sortByDistances(m);
+    assert(areTwoMatricesEqual(&m, &expected_m));
+    freeMemMatrix(&expected_m);
+    freeMemMatrix(&m);
+}
+//уже отсортирован
+void test_sortByDistances_alreadySort(){
+    int arr[]= {1,1,1,0,
+                0,1,1,1,
+                0,1,3,4,
+                3,3,3,1};
+    matrix m = createMatrixFromArray(arr, 4, 4);
+    int expected_a[]= {1,1,1,0,
+                       0,1,1,1,
+                       0,1,3,4,
+                       3,3,3,1};
+    matrix expected_m = createMatrixFromArray(expected_a, 4, 4);
+    sortByDistances(m);
+    assert(areTwoMatricesEqual(&m, &expected_m));
+    freeMemMatrix(&expected_m);
+    freeMemMatrix(&m);
+}
 
 
 void test_matrix() {
@@ -644,6 +723,8 @@ void test_matrix() {
     test_getMinInArea_atBorder();
     test_getMinInArea_inFirstRow();
     test_getMinInArea_inSecondRow();
+    test_sortByDistances_equaleDist();
+    test_sortByDistances_alreadySort();
 
 }
 int main() {
