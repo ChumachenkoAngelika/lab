@@ -925,6 +925,82 @@ void test_swapPenultimateRow_MinInFirst(){
     freeMemMatrix(&m);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 13 номер
+bool isNonDescendingSorted(int *a, int n){
+    for(int i = 0; i < n - 1; i++){
+        if(a[i] > a[i+1])
+            return false;
+    }
+    return true;
+}
+bool hasAllNonDescendingRows(matrix m){
+    for(int i = 0; i < m.nRows; i++){
+        if(!isNonDescendingSorted(m.values[i], m.nCols)){
+            return false;
+        }
+    }
+    return true;
+}
+int countNonDescendingRowsMatrices(matrix *ms, int nMatrix){
+    int count = 0;
+    for(int i = 0; i < nMatrix; i++){
+        if(hasAllNonDescendingRows(ms[i])){
+            count++;
+        }
+    }
+    return count;
+}
+
+//обычный случай
+void test_countNonDescendingRowsMatrices_base() {
+    int arr[] = {7, 1, 1, 1,
+                 1, 6, 2, 2,
+                 5, 4, 2, 3,
+                 1, 3, 7, 9};
+
+    matrix *ms = createArrayOfMatrixFromArray(arr, 4, 2, 2);
+    assert(countNonDescendingRowsMatrices(ms, 4) == 2);
+    freeMemMatrices(ms, 4);
+}
+
+
+//если матрица состоит из одинаковых элементов
+void test_countNonDescendingRowsMatrices_allEquale(){
+    int arr[] = {1, 1, 1, 1,
+                 5, 5, 5, 5,
+                 3, 3, 3, 3,
+                 7, 7, 7, 2};
+
+    matrix *ms = createArrayOfMatrixFromArray(arr, 4, 2, 2);
+    assert(countNonDescendingRowsMatrices(ms, 4) == 3);
+    freeMemMatrices(ms, 4);
+}
+
+
+
+
+
+
+
+
+
 void test_matrix() {
     test_change_min_max_base();
     test_change_min_max_oneRow();
@@ -960,6 +1036,8 @@ void test_matrix() {
     test_swapPenultimateRow_base();
     test_swapPenultimateRow_MaxInt();
     test_swapPenultimateRow_MinInFirst();
+    test_countNonDescendingRowsMatrices_base();
+    test_countNonDescendingRowsMatrices_allEquale();
 
 }
 int main() {
