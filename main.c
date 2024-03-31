@@ -1141,6 +1141,131 @@ void test_printMatrixWithMaxZeroRows_zeroRowsIsEquale(){
 
 
 
+
+// 16 номер
+int max_val(matrix m){
+    int max = INT_MIN;
+    for(int i = 0; i < m.nRows; i++){
+        for(int j = 0; j < m.nCols; j++){
+            if(max < (m.values[i][j])) {
+                max = (m.values[i][j]);
+            }
+        }
+    }
+    return max;
+}
+
+void check_print_matrix_minNorm(matrix *ms, int nMatrix, int *a, int *n){
+    int arr[nMatrix];
+    int arr_index[nMatrix];
+    for(int i = 0; i < nMatrix; i++){
+        arr[i] = max_val(ms[i]);
+        arr_index[i] = i;
+    }
+    for (int i = 0; i < nMatrix; i++) {
+        for (int j = i; j < nMatrix; j++) {
+            if (arr[i] > arr[j]) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                int temp_index = arr_index[i];
+                arr_index[i] = arr_index[j];
+                arr_index[j] = temp_index;
+            }
+        }
+    }
+    int min_value = arr[0];
+    int ind = 0;
+    for(int i = 0; i < nMatrix; i++){
+        if(arr[i] != min_value)
+            break;
+        a[ind] = arr_index[i];
+        ind++;
+    }
+    *n = ind;
+}
+
+void print_matrix_minNorm(matrix *ms, int nMatrix){
+    int arr[nMatrix];
+    int arr_index[nMatrix];
+    for(int i = 0; i < nMatrix; i++){
+        arr[i] = max_val(ms[i]);
+        arr_index[i] = i;
+    }
+    for (int i = 0; i < nMatrix; i++) {
+        for (int j = i; j < nMatrix; j++) {
+            if (arr[i] > arr[j]) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                int temp_index = arr_index[i];
+                arr_index[i] = arr_index[j];
+                arr_index[j] = temp_index;
+            }
+        }
+    }
+    int min_value = arr[0];
+    for(int i = 0; i < nMatrix; i++){
+        if(arr[i] != min_value)
+            break;
+        outputMatrix(ms[arr_index[i]]);
+    }
+}
+//базовый тест
+void test_print_matrix_minNorm_base(){
+    int arr[] = {0, 0, 0,
+                 0,1, 0,
+                 2, 8,0,
+
+                 0, 0, 0,
+                 1, 1, 2,
+                 3,4, 5,
+
+                 0, 2,0,
+                 3, 3, 0,
+                 0, 0, 0,
+
+                 3,8, 5,
+                 6, 5, 7,
+                 0,0,0};
+    matrix *ms = createArrayOfMatrixFromArray(arr, 4, 3, 3);
+    int expriment_arr[4];
+    int n = 4;
+    int expected_arr[]= {2};
+    check_print_matrix_minNorm(ms, 4, expriment_arr, &n);
+    for(int i = 0; i < n; i++){
+        assert(expriment_arr[i] == expected_arr[i]);
+    }
+    freeMemMatrices(ms, 4);
+}
+//все матрицы подходят
+void test_print_matrix_minNorm_AllMatrixsPrint(){
+    int arr[] = {0, 0, 0,
+                 0,1, 0,
+                 2, 8,0,
+
+                 0, 0, 0,
+                 1, 1, 2,
+                 3,4, 8,
+
+                 0, 2,0,
+                 3, 8, 0,
+                 0, 0, 0,
+
+                 3,8, 5,
+                 6, 5, 7,
+                 0,0,0};
+    matrix *ms = createArrayOfMatrixFromArray(arr, 4, 3, 3);
+    int expriment_arr[4];
+    int n = 4;
+    int expected_arr[]= {0,1,2,3};
+    check_print_matrix_minNorm(ms, 4, expriment_arr, &n);
+    for(int i = 0; i < n; i++){
+        assert(expriment_arr[i] == expected_arr[i]);
+    }
+    freeMemMatrices(ms, 4);
+}
+
 void test_matrix() {
     test_change_min_max_base();
     test_change_min_max_oneRow();
@@ -1180,6 +1305,8 @@ void test_matrix() {
     test_countNonDescendingRowsMatrices_allEquale();
     test_printMatrixWithMaxZeroRows_base();
     test_printMatrixWithMaxZeroRows_zeroRowsIsEquale();
+    test_print_matrix_minNorm_base();
+    test_print_matrix_minNorm_AllMatrixsPrint();
 
 }
 int main() {
