@@ -17,5 +17,6 @@ size_t strlen_(const char *begin) {
 char* find(char *begin, char *end, int ch);
 
 
+char* findNonSpace(char *begin);
 
 #endif //LAB_STRING__H
