@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <math.h>
+#include "libs/algorithms/test_matrix.h"
 //номер 1
 // символ найден внутри заданного диапазона
 void test_find_char_within_range() {
@@ -160,7 +161,8 @@ void test_17laba(){
     test_findSpace_emptyString();
 }
 int main(){
-    test_17laba();
+    //test_17laba();
+    test_matrix();
 
 
     return 0;
