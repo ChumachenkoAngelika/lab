@@ -147,7 +147,7 @@ void test_findSpace_emptyString(){
 
 
 
-
+//тесты
 void test_17laba(){
     test_find_char_within_range();
     test_find_char_not_in_range();
