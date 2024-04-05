@@ -39,6 +39,13 @@ char* findNonSpaceReverse(char *rbegin, const char *rend){
 // возвращается адрес rend
 
 char* findSpaceReverse(char *rbegin, const char *rend){
-
+    char *result = rbegin;
+    while (result != rend){
+        if (*result == ' '){
+            return result;
+        }
+        result--;
+    }
+    return rend;
 }
 
