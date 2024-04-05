@@ -25,7 +25,13 @@ char* findSpace(char *begin){
 
 
 char* findNonSpaceReverse(char *rbegin, const char *rend){
-
+    while (rbegin >= rend && isspace(*rbegin)){
+        rbegin--; //так сказать, чтобы двигаться в обратном направлении
+    }
+    if (rbegin < rend){
+        return rend;
+    }
+    return rbegin;
 }
 
 
