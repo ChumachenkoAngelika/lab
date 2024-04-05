@@ -174,6 +174,47 @@ void test_empty_line(){
 
 
 
+
+
+
+
+
+
+
+
+//номер 5
+
+void tests_without_spaces(){
+    char input[] = "HelloWorld";
+    char *result = findSpaceReverse(input + strlen(input) - 1, input);
+    if (result == input){
+        printf("Passed\n");
+    }else{
+        printf("failed\n");
+    }
+
+}
+
+// Тестирование на пустой строке
+void tests_empty_line(){
+    char input[] = "";
+    char *result = findSpaceReverse(input + strlen(input) - 1, input);
+    if (result != input){
+        printf("Passed\n");
+
+    }else{
+        printf("Failed\n");
+    }
+
+}
+
+
+
+
+
+
+
+
 //тесты
 void test_17laba(){
     test_find_char_within_range();
@@ -187,6 +228,13 @@ void test_17laba(){
     test_findSpace_emptyString();
     test_without_spaces();
     test_empty_line();
+    tests_without_spaces();
+
+
+    tests_empty_line();
+
+
+
 }
 int main(){
     test_17laba();
