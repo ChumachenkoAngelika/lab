@@ -86,7 +86,15 @@ int isDigit(int f){
 }
 
 char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int)){
+    while (rbeginSource >= rendSource) {
+        if (f(*rbeginSource)) {
+            *beginDestination = *rbeginSource;
+            beginDestination++;
+        }
+        rbeginSource--;
+    }
 
+    return beginDestination;
 }
 
 int isVowel(int f){
