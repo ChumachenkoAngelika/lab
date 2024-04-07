@@ -84,3 +84,16 @@ int isLetter(int f){
 int isDigit(int f){
     return (f >= '0' && f <= '9');
 }
+
+char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int)){
+
+}
+
+int isVowel(int f){
+    return f == 'a' || f == 'e' || f == 'i' || f == 'o' || f == 'u' || f == 'y';
+}
+
+int isOddDigits(int f) {
+    return f == '1' || f == '3' || f == '5' || f == '7' || f == '9';
+
+}

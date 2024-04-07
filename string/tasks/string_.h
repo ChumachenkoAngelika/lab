@@ -29,4 +29,12 @@ int isLetter(int f);
 
 int isDigit(int f);
 
+
+char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int));
+
+int isVowel(int f);
+
+int isOddDigits(int f);
+
+
 #endif //LAB_STRING__H
