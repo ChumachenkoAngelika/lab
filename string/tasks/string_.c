@@ -1,5 +1,5 @@
 #include "string_.h"
-
+#include <memory.h>
 
 
 char* find(char *begin, char *end, int ch) {
@@ -56,3 +56,10 @@ int strcmp(const char *lhs, const char *rhs) {
     }
     return *lhs - *rhs;
 }
+
+
+
+char* copy(const char* beginSource, const char* endSource, char* beginDestination) {
+
+}
+

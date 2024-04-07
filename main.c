@@ -256,6 +256,38 @@ void test_are_eqial_string(){
 
 
 
+
+
+
+
+
+
+
+
+//номер 7
+//Тест с пустыми исходными строками
+void test_empty_string(){
+    char source[] = "";
+    char destination[10] = "12345";
+    char* newDestination = copy(source, source, destination);
+    printf("Result: %s\n", destination);
+
+}
+//Тест с непустыми исходными строками
+void test_with_no_empty__string(){
+    char source[] = "Hello, World!";
+    char* endSource = source +6;
+    char destination[20] = "";
+    char* newDestination = copy(source, endSource, destination);
+    printf("Result: %s\n", destination);
+}
+
+
+
+
+
+
+
 //тесты
 void test_17laba(){
     test_find_char_within_range();
@@ -270,9 +302,9 @@ void test_17laba(){
     test_without_spaces();
     test_empty_line();
     tests_without_spaces();
-
-
     tests_empty_line();
+    test_empty_string();
+    test_with_no_empty__string();
 
 
 
