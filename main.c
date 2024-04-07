@@ -288,6 +288,36 @@ void test_with_no_empty__string(){
 
 
 
+
+
+
+//Номер 8
+//  Копирование только букв
+void test_only_the_letters(){
+    char source[] = "Hello,??world!";
+    char destination[40];
+
+    char *result = copyIf(source, source + 15, destination, isLetter);
+    *result = '\0'; // Добавляем ноль-символ для корректного вывода строки
+    printf("%s\n", destination);
+}
+
+
+void test_only_the_digits(){
+    char source[] = "Hello,123world!123";
+    char destination[40];
+
+    char *result = copyIf(source, source + 19, destination, isDigit);
+    *result = '\0'; // Добавляем ноль-символ для корректного вывода строки
+    printf("%s\n", destination);
+}
+
+
+
+
+
+
+
 //тесты
 void test_17laba(){
     test_find_char_within_range();
@@ -305,8 +335,8 @@ void test_17laba(){
     tests_empty_line();
     test_empty_string();
     test_with_no_empty__string();
-
-
+    test_only_the_letters();
+    test_only_the_digits();
 
 }
 int main(){
