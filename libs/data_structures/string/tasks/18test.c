@@ -70,6 +70,25 @@ void test_removeAdjacentEqualLetters_one_symbol(){
 }
 
 
+void test_removeExtraSpaces_extra_spaces(){
+    char words[] = "   Hello  World   !   ";
+    removeExtraSpaces(words);
+    ASSERT_STRING(" Hello World ! ", words);
+}
+
+
+void test_removeExtraSpaces_only_spaces(){
+    char words[] = "     ";
+    removeExtraSpaces(words);
+    ASSERT_STRING(" ", words);
+}
+
+void test_removeExtraSpaces_without_spaces(){
+    char words[] = "Hello,World!";
+    removeExtraSpaces(words);
+    ASSERT_STRING("Hello,World!", words);
+}
+
 void test_for_18_laba(){
     test_removeNonLetters_with_spaces();
     test_removeNonLetters_with_spaces2();
@@ -78,6 +97,7 @@ void test_for_18_laba(){
     test_removeAdjacentEqualLetters_usual();
     test_removeAdjacentEqualLetters_empty_string();
     test_removeAdjacentEqualLetters_one_symbol();
-
-
+    test_removeExtraSpaces_extra_spaces();
+    test_removeExtraSpaces_only_spaces();
+    test_removeExtraSpaces_without_spaces();
 }
