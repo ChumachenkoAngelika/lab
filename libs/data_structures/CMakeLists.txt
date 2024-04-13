@@ -9,4 +9,12 @@ add_library(data_structures
         vector/vectorVoid.h
         matrix/matrix.h
         matrix/matrix.c
+        string/tasks/test_string_.c
+        string/tasks/test_string_.h
+        string/string_.c
+        string/string_.h
+        string/tasks/18test.c
+        string/tasks/18test.h
+        string/processing_string.c
+        string/processing_string.h
 )

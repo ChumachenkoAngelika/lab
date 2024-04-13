@@ -10,8 +10,7 @@ add_executable(lab main.c
         libs/data_structures/vector/vectorVoid.h
         libs/data_structures/matrix/matrix.h
         libs/data_structures/matrix/matrix.c
-        string/tasks/string_.c
-        string/tasks/string_.h
+
 )
 
 add_subdirectory(libs)

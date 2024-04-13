@@ -19,7 +19,7 @@ char* findNonSpaceReverse(char *rbegin, const char *rend);
 
 char* findSpaceReverse(char *rbegin, const char *rend);
 
-int strcmp(const char *lhs, const char *rhs);
+int strcmp_(const char *lhs, const char *rhs);
 
 char* copy(const char *beginSource, const char *endSource, char *beginDestination);
 
@@ -35,6 +35,5 @@ char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDesti
 int isVowel(int f);
 
 int isOddDigits(int f);
-
 
 #endif //LAB_STRING__H

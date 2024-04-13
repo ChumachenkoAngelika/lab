@@ -24,12 +24,13 @@ char* findSpace(char *begin){
 }
 
 
+
 char* findNonSpaceReverse(char *rbegin, const char *rend){
-    while (rbegin >= rend && isspace(*rbegin)){
-        rbegin--; //так сказать, чтобы двигаться в обратном направлении
-    }
-    if (rbegin < rend){
-        return rend;
+    while(rbegin != rend){
+        if(!(isspace(*rbegin))){
+            return rbegin;
+        }
+        rbegin--;
     }
     return rbegin;
 }
@@ -39,17 +40,16 @@ char* findNonSpaceReverse(char *rbegin, const char *rend){
 // возвращается адрес rend
 
 char* findSpaceReverse(char *rbegin, const char *rend){
-    char *result = rbegin;
-    while (result != rend){
-        if (*result == ' '){
-            return result;
+    while(rbegin != rend){
+        if(isspace(*rbegin)){
+            return rbegin;
         }
-        result--;
+        rbegin--;
     }
-    return rend;
+    return rbegin;
 }
 
-int strcmp(const char *lhs, const char *rhs) {
+int strcmp_(const char *lhs, const char *rhs) {
     while (*lhs != '\0' && *lhs == *rhs) {
         lhs++;
         rhs++;
@@ -78,7 +78,7 @@ char* copyIf(char *beginSource, const char *endSource, char *beginDestination, i
 
 // Функция, которая определяет, является ли символ буквой
 int isLetter(int f){
-    return (f >= 'a' && f <= 'z') || (f >= 'A' && f <= 'Z');
+    return (f >= 'a' && f <= 'z') && (f >= 'A' && f <= 'Z');
 }
 
 int isDigit(int f){
@@ -102,6 +102,6 @@ int isVowel(int f){
 }
 
 int isOddDigits(int f) {
-    return f == '1' || f == '3' || f == '5' || f == '7' || f == '9';
+    return f == '1' ||  f == '3' || f == '5' || f == '7' || f == '9';
 
 }
