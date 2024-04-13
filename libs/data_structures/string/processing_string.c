@@ -1,7 +1,7 @@
-
-
 #include <stddef.h>
 #include "string_.h"
+#include <ctype.h>
+
 
 char *getEndOfString(char *s){
     while (*s != '\0'){
