@@ -9,4 +9,7 @@ void removeNonLetters(char *s);
 
 void removeAdjacentEqualLetters(char *s);
 
+
+void removeExtraSpaces(char *s);
+
 #endif //LAB_PROCESSING_STRING_H

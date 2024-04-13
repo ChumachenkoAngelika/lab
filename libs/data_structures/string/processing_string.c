@@ -38,3 +38,31 @@ void removeAdjacentEqualLetters(char *s){
     s[index] = '\0';
 }
 
+
+
+
+void removeExtraSpaces(char *s){
+    if(s == NULL){
+        return;
+    }
+
+    int index = 0;
+    int i = 0;
+    int spaceCounter = 0;
+    while(s[i] != '\0'){
+        if(s[i] != ' '){ // если символ не пробел
+            s[index] = s[i];
+            index++;
+            spaceCounter = 0; // сброс счетчика
+        } else {
+            if(spaceCounter == 0){ // если это первый пробел
+                s[index] = s[i];
+                index++;
+            }
+            spaceCounter++;
+        }
+        i++;
+    }
+    s[index] = '\0';
+}
+

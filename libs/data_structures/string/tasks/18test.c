@@ -69,6 +69,7 @@ void test_removeAdjacentEqualLetters_one_symbol(){
     ASSERT_STRING("a", words);
 }
 
+
 void test_for_18_laba(){
     test_removeNonLetters_with_spaces();
     test_removeNonLetters_with_spaces2();
@@ -77,4 +78,6 @@ void test_for_18_laba(){
     test_removeAdjacentEqualLetters_usual();
     test_removeAdjacentEqualLetters_empty_string();
     test_removeAdjacentEqualLetters_one_symbol();
+
+
 }
