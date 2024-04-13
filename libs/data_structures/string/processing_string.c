@@ -3,6 +3,8 @@
 #include <ctype.h>
 
 
+int strlen(char *s);
+
 char *getEndOfString(char *s){
     while (*s != '\0'){
         s++;
@@ -17,22 +19,22 @@ void removeNonLetters(char *s) {
 }
 
 
+
+
 void removeAdjacentEqualLetters(char *s){
-    if (s == NULL || *s == '\0'){
+    if(s == NULL){
         return;
     }
-    char *new_s = s;
-    char previous = *s;
 
-    //если текущий символ не равен предыдущему символу, то увеличиваем значение указателя new_s
-    // затем присваиваем текущий символ этой ячейке памяти и обновляем значение previous на текущий символ.
-    while (*s != '\0'){
-        if (*s != previous){
-            *(++new_s) = *s;
+    int index = 0, length = strlen(s);
+
+    for(int i = 0; i < length; i++){
+        if(i == 0 || s[i] != s[i-1]){
+            s[index] = s[i];
+            index++;
         }
-        s++;
     }
-    //добавляем завершающий нулевой символ к новой строке, чтобы завершить новую строку.
-    *(++new_s) = '\0';
+
+    s[index] = '\0';
 }
 

@@ -48,13 +48,33 @@ void test_removeNonLetters_without_spaces(){
 
 
 
+//2 номер
+//обычный тест
+void test_removeAdjacentEqualLetters_usual(){
+    char words[] = "aaabbbcccdddeee";
+    removeAdjacentEqualLetters(words);
+    ASSERT_STRING("abcde", words);
+}
+
+void test_removeAdjacentEqualLetters_empty_string(){
+    char words[] = "";
+    removeAdjacentEqualLetters(words);
+    ASSERT_STRING("", words);
+}
 
 
+void test_removeAdjacentEqualLetters_one_symbol(){
+    char words[] = "a";
+    removeAdjacentEqualLetters(words);
+    ASSERT_STRING("a", words);
+}
 
 void test_for_18_laba(){
     test_removeNonLetters_with_spaces();
     test_removeNonLetters_with_spaces2();
     test_removeNonLetters_only_spaces();
     test_removeNonLetters_without_spaces();
-
+    test_removeAdjacentEqualLetters_usual();
+    test_removeAdjacentEqualLetters_empty_string();
+    test_removeAdjacentEqualLetters_one_symbol();
 }
