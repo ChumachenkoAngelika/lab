@@ -4,9 +4,8 @@
 
 #include <corecrt.h>
 #include <ctype.h>
+#include "processing_string.h"
 
-#define MAX_STRING_SIZE 128
-char _stringBuffer[MAX_STRING_SIZE + 1];
 
 
 
@@ -38,5 +37,6 @@ char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDesti
 int isVowel(int f);
 
 int isOddDigits(int f);
+
 
 #endif //LAB_STRING__H

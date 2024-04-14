@@ -1,10 +1,12 @@
 #include <stdio.h>
+#include <string.h>
 #include "../string_.h"
 #include "../processing_string.h"
 
-
 #define ASSERT_STRING(expected, got) assertString(expected, got, \
 __FILE__, __FUNCTION__, __LINE__)
+
+
 
 void assertString(const char *expected, char *got,
                   char const *fileName, char const *funcName,
@@ -90,6 +92,25 @@ void test_removeExtraSpaces_without_spaces(){
 }
 
 
+void test_digitToStart_first() {
+    char s[] = "81F822";
+    changeWords_numb(s);
+    ASSERT_STRING("18228F", s);
+}
+
+void test_digitToStart_third() {
+    char s[] = "";
+    changeWords_numb(s);
+    ASSERT_STRING("", s);
+}
+
+void test_getWordReverse() {
+    WordDescriptor word;
+    char s[] = "123 222 8585";
+    getWordReverse(s, s + strlen(s) - 1, &word);
+    ASSERT_STRING("8585", word.begin);
+}
+
 
 
 
@@ -104,5 +125,7 @@ void test_for_18_laba(){
     test_removeExtraSpaces_extra_spaces();
     test_removeExtraSpaces_only_spaces();
     test_removeExtraSpaces_without_spaces();
-
+    test_digitToStart_first();
+    test_digitToStart_third();
+    test_getWordReverse();
 }
