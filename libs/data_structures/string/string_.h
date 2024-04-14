@@ -5,6 +5,9 @@
 #include <corecrt.h>
 #include <ctype.h>
 
+#define MAX_STRING_SIZE 128
+char _stringBuffer[MAX_STRING_SIZE + 1];
+
 
 
 char* find(char *begin, char *end, int ch);

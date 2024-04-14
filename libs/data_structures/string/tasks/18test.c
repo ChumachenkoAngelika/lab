@@ -89,6 +89,10 @@ void test_removeExtraSpaces_without_spaces(){
     ASSERT_STRING("Hello,World!", words);
 }
 
+
+
+
+
 void test_for_18_laba(){
     test_removeNonLetters_with_spaces();
     test_removeNonLetters_with_spaces2();
@@ -100,4 +104,5 @@ void test_for_18_laba(){
     test_removeExtraSpaces_extra_spaces();
     test_removeExtraSpaces_only_spaces();
     test_removeExtraSpaces_without_spaces();
+
 }

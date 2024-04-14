@@ -1,9 +1,10 @@
 #include <stddef.h>
 #include "string_.h"
+#include "processing_string.h"
 #include <ctype.h>
+#include <string.h>
 
 
-int strlen(char *s);
 
 char *getEndOfString(char *s){
     while (*s != '\0'){
@@ -64,5 +65,20 @@ void removeExtraSpaces(char *s){
         i++;
     }
     s[index] = '\0';
+}
+
+
+int getWord(char *beginSearch, WordDescriptor *word) {
+    word->begin = findNonSpace(beginSearch);
+    if (*word->begin == '\0')
+        return 0;
+    word->end = findSpace(word->begin);
+    return 1;
+}
+
+void digitToStart(WordDescriptor word) {
+    char *endStringBuffer = copy(word.begin, word.end, _stringBuffer);
+    char *recPosition = copyIfReverse(endStringBuffer - 1,_stringBuffer - 1,word.begin, isdigit);
+    copyIf(_stringBuffer, endStringBuffer, recPosition, isalpha);
 }
 
