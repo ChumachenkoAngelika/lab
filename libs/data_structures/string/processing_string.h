@@ -43,4 +43,8 @@ void changeWords_Letters(char *s);
 
 void replaceDigitsWithSpace(char *source);
 
+void replace(char *source, char *w1, char *w2);
+
+int areWordsEqual_comparison(WordDescriptor w1, WordDescriptor w2);
+
 #endif //LAB_PROCESSING_STRING_H

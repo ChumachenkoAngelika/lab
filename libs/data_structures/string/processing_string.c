@@ -131,3 +131,93 @@ void replaceDigitsWithSpace(char *source) {
 
     copy(dest_array, dest, source);
 }
+//номер 5
+void replace(char *source, char *w1, char *w2) {
+    size_t w1Size = strlen_(w1);
+    size_t w2Size = strlen_(w2);
+    WordDescriptor word1 = {w1, w1 + w1Size};
+    WordDescriptor word2 = {w2, w2 + w2Size};
+    char *end__stringBuffer = copy(source, source+ strlen_(source),
+                                   _stringBuffer);
+    *end__stringBuffer = '\0';
+    char *readPtr, *recPtr;
+    char *begin = source;
+    if (w1Size >= w2Size) {
+        readPtr = _stringBuffer;
+        recPtr = _stringBuffer;
+        while(*readPtr != '\0'){
+            WordDescriptor word;
+            getWord(readPtr, &word);
+            char temp_word[MAX_STRING_SIZE];
+            char *tempbegin = temp_word;
+            char *endtempword = copy(word.begin, word.end, tempbegin);
+            *endtempword = '\0';
+            if (strcmp_(temp_word, w1)) {
+                copy(w2, word2.end, begin);
+                begin += w2Size;
+                *begin = ' ';
+                begin++;
+                readPtr += w1Size + 1;
+            } else {
+                copy(word.begin, word.end, begin);
+                begin += word.end - word.begin;
+                *begin = ' ';
+                begin++;
+                readPtr += word.end - word.begin;
+            }
+        }
+        *(begin-1) = '\0';
+    } else {
+        readPtr = _stringBuffer;
+        recPtr = _stringBuffer;
+        while(*readPtr != '\0'){
+            WordDescriptor word;
+            getWord(readPtr, &word);
+            char temp_word[MAX_STRING_SIZE];
+            char *tempbegin = temp_word;
+            char *endtempword = copy(word.begin, word.end, tempbegin);
+            *endtempword = '\0';
+            if (strcmp_(temp_word, w1)) {
+                copy(w2, word2.end, begin);
+                begin += w2Size;
+                *begin = ' ';
+                begin++;
+                readPtr += w1Size + 1;
+            } else {
+                copy(word.begin, word.end, begin);
+                begin += word.end - word.begin;
+                *begin = ' ';
+                begin++;
+                readPtr += word.end - word.begin;
+            }
+        }
+        *(begin-1) = '\0';
+    }
+}
+
+//сравнение слов, словов w1 стоит выше чем w2 по алфавиту 0,
+//словов w2 стоит выше чем w1 по алфавиту 1, если слова совпали то 2
+int areWordsEqual_comparison(WordDescriptor w1, WordDescriptor w2){
+    char *beginW1 =w1.begin;
+    char *beginW2 =w2.begin;
+    while(*beginW1!='\0' && *beginW2!='\0'){
+        char temp_letter_W1 = *beginW1;
+        char temp_letter_W2 = *beginW2;
+        if(temp_letter_W1>64 && temp_letter_W1 < 91){
+            temp_letter_W1+=32;
+        }
+        if(temp_letter_W2>64 && temp_letter_W2 < 91){
+            temp_letter_W2+=32;
+        }
+        if(temp_letter_W1 < temp_letter_W2)
+            return 0;
+        if(temp_letter_W1 > temp_letter_W2)
+            return 1;
+        beginW1++;
+        beginW2++;
+    }
+    if(strlen_(w1.begin) != strlen_(w2.begin)){
+        return strlen_(w1.begin) > strlen_(w2.begin);
+    }
+    return 2;
+}

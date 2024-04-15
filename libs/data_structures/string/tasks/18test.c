@@ -127,7 +127,7 @@ void test_getWordReverse() {
     ASSERT_STRING("8585", word.begin);
 }
 
-// Solution for Task 1
+
 void test_LettersToStart_first() {
     char s[] = "hello81 tF822";
     changeWords_Letters(s);
@@ -173,4 +173,5 @@ void test_for_18_laba(){
     test_LettersToStart_second();
     test_one_fourth();
     test_two_fourth();
+
 }
