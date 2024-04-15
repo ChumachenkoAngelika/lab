@@ -140,6 +140,16 @@ void test_LettersToStart_second() {
     ASSERT_STRING("olleh18 cxz987654321 749658", s);
 }
 
+void test_one_fourth(){
+    char str2[] = "12";
+    replaceDigitsWithSpace(str2);
+    ASSERT_STRING("   ", str2);
+}
+void test_two_fourth(){
+    char str3[] = "hhh3dd2f";
+    replaceDigitsWithSpace(str3);
+    ASSERT_STRING("hhh   dd  f", str3);
+}
 
 
 
@@ -161,5 +171,6 @@ void test_for_18_laba(){
     test_digitToStart_third();
     test_LettersToStart_first();
     test_LettersToStart_second();
-
+    test_one_fourth();
+    test_two_fourth();
 }
