@@ -203,6 +203,44 @@ void test_areWordsEqual_third(){
 }
 
 
+void test_OrderedWords_first(){
+    int ans;
+    char s[100] = "abcdd mdfgh zxc";
+    if(OrderedWords(s))
+        ans = 1;
+    else
+        ans = 0;
+    ASSERT_STRING_INT(1, ans);
+}
+void test_OrderedWords_second(){
+    int ans;
+    char s[100] = "abcdd mdfgh axc";
+    if(OrderedWords(s))
+        ans = 1;
+    else
+        ans = 0;
+    ASSERT_STRING_INT(0, ans);
+}
+void test_OrderedWords_third(){
+    int ans;
+    char s[100] = "abcdd abcdd abvc aa";
+    if(OrderedWords(s))
+        ans = 1;
+    else
+        ans = 0;
+    ASSERT_STRING_INT(0, ans);
+}
+void test_OrderedWords_fourth(){
+    int ans;
+    char s[100] = "abcdd abcdd abvc abvz aa";
+    if(OrderedWords(s))
+        ans = 1;
+    else
+        ans = 0;
+    ASSERT_STRING_INT(0, ans);
+}
+
+
 void test_for_18_laba(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -229,4 +267,8 @@ void test_for_18_laba(){
     test_areWordsEqual_first();
     test_areWordsEqual_second();
     test_areWordsEqual_third();
+    test_OrderedWords_first();
+    test_OrderedWords_second();
+    test_OrderedWords_third();
+    test_OrderedWords_fourth();
 }
