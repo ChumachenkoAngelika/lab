@@ -244,3 +244,30 @@ bool OrderedWords(char *s){
     return true;
 }
 
+
+
+void getBagOfWords(BagOfWords *bag, char *s){
+    char *begin = s;
+    while (*begin!='\0'){
+        getWord(begin, &bag->words[bag->size]);
+        begin += (bag->words[bag->size].end - bag->words[bag->size].begin);
+        bag->size++;
+        if(*begin == '\0')
+            break;
+        begin++;
+    }
+}
+//выводит строку с конца
+void print_string_revers(char *s){
+    getBagOfWords(&_bag, s);
+    while(_bag.size>0){
+        while (_bag.words[_bag.size-1].begin != _bag.words[_bag.size-1].end){
+            printf("%c", *_bag.words[_bag.size-1].begin);
+            _bag.words[_bag.size-1].begin++;
+        }
+        printf("\n");
+        _bag.size--;
+    }
+}
+
+

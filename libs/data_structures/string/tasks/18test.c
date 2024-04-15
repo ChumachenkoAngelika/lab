@@ -203,7 +203,6 @@ void test_areWordsEqual_third(){
 }
 
 
-
 void test_for_18_laba(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
