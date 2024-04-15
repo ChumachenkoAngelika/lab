@@ -9,6 +9,9 @@
 #define MAX_STRING_SIZE 100
 #define MAX_N_WORDS_IN_STRING 100
 #define MAX_WORD_SIZE 20
+#define MAX_STRING_SIZE 100
+#define MAX_N_WORDS_IN_STRING 100
+#define MAX_WORD_SIZE 20
 typedef struct WordDescriptor {
 char *begin;
 char *end;
@@ -37,4 +40,7 @@ void changeWords_numb(char *s);
 void LettersToStart(WordDescriptor word);
 
 void changeWords_Letters(char *s);
+
+void replaceDigitsWithSpace(char *source);
+
 #endif //LAB_PROCESSING_STRING_H

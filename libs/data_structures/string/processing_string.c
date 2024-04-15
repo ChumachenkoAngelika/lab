@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "processing_string.h"
 
 BagOfWords _bag;
@@ -103,4 +104,30 @@ void changeWords_Letters(char *s){
         LettersToStart(word);
         beginSearch += (word.end + 1 - beginSearch);
     }
+}
+
+
+
+void replaceDigitsWithSpace(char *source) {
+    char dest_array[MAX_STRING_SIZE];
+    char *endSource = getEndOfString(source);
+    char *dest = dest_array;
+
+    for (char *i = source; i <= endSource; i += sizeof(char)) {
+        if (isdigit(*i)) {
+            int num = *i - '0' - 1;
+            for (int j = 0; j <= num; j++) {
+                *dest = ' ';
+                dest += sizeof(char);
+            }
+        } else {
+            *dest = *i;
+            dest += sizeof(char);
+        }
+    }
+
+    dest += sizeof(char);
+    *dest = '\0';
+
+    copy(dest_array, dest, source);
 }

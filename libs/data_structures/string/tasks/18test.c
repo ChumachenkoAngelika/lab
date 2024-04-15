@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include "../processing_string.h"
-#include "../string_.h"
-#include "../processing_string.h"
+
 
 #define ASSERT_STRING(expected, got) assertString(expected, got, __FILE__, __FUNCTION__, __LINE__)
-#define ASSERT_STRING_INT(expected, got) assertStringInt(expected, got, FILE, FUNCTION, __LINE__)
+
 
 void assertString(const char *expected, char *got, char const *fileName, char const *funcName, int line) {
     if (!strcmp_(expected, got)) {
@@ -141,6 +140,9 @@ void test_LettersToStart_second() {
     ASSERT_STRING("olleh18 cxz987654321 749658", s);
 }
 
+
+
+
 void test_for_18_laba(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -159,4 +161,5 @@ void test_for_18_laba(){
     test_digitToStart_third();
     test_LettersToStart_first();
     test_LettersToStart_second();
+
 }
