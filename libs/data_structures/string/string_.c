@@ -65,9 +65,9 @@ char* copy(const char* beginSource, const char* endSource, char* beginDestinatio
 }
 
 
-char* copyIf(char *beginSource, const char *endSource, char *beginDestination, int (*f)(int)){
+char* copyIf(char *beginSource, const char *endSource, char *beginDestination, int (*f)(char*)){
     while (beginSource < endSource){
-        if (f(*beginSource)){
+        if (f(beginSource)){
             *beginDestination = *beginSource;
             beginDestination++;
         }
@@ -85,9 +85,9 @@ int isDigit(int f){
     return (f >= '0' && f <= '9');
 }
 
-char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int)){
+char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(char*)){
     while (rbeginSource >= rendSource) {
-        if (f(*rbeginSource)) {
+        if (f(rbeginSource)) {
             *beginDestination = *rbeginSource;
             beginDestination++;
         }

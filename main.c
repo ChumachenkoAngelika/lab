@@ -4,6 +4,8 @@
 
 
 int main(){
-    test_for_18_laba();
-    return 0;
+   test_for_18_laba();
+   return 0;
 }
+
+

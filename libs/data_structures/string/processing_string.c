@@ -10,17 +10,17 @@ char *getEndOfString(char *s){
     while (*s != '\0'){
         s++;
     }
+
     return s;
 }
-
+int isspase_(char *s){
+    return 0 == isspace(*s);
+}
 void removeNonLetters(char *s) {
     char *endSource = getEndOfString(s);
-    char *destination = copyIf(s, endSource, s, isgraph);
+    char *destination = copyIf(s, endSource, s, isspase_);
     *destination = '\0';
 }
-
-
-
 
 void removeAdjacentEqualLetters(char *s){
     if(s == NULL){
@@ -28,7 +28,6 @@ void removeAdjacentEqualLetters(char *s){
     }
 
     int index = 0, length = strlen(s);
-
     for(int i = 0; i < length; i++){
         if(i == 0 || s[i] != s[i-1]){
             s[index] = s[i];
@@ -74,6 +73,8 @@ void removeExtraSpaces(char *s){
 #define MAX_STRING_SIZE 100
 
 char _stringBuffer[MAX_STRING_SIZE + 1];
+
+
 
 int getWord(char *beginSearch, WordDescriptor *word) {
     word->begin = beginSearch;
@@ -157,5 +158,28 @@ void changeWords_numb(char *s) {
         } else {
             finish++;
         }
+    }
+}
+
+int isNumb(char *s) {
+    return (*s > 47 && *s < 58);
+}
+
+int isNotNumb(char *s) {
+    return !(*s > 47 && *s < 58) ? 1 : 0;
+}
+
+void LettersToStart(WordDescriptor word) {
+    char *endStringBuffer = copy(word.begin, word.end, _stringBuffer) - 1;
+    char *recPosition = copyIfReverse(endStringBuffer - 1, _stringBuffer - 1, word.begin, isNotNumb);
+    copyIf(_stringBuffer, endStringBuffer, recPosition, isNumb);
+}
+
+void changeWords_Letters(char *s){
+    char *beginSearch = s;
+    WordDescriptor word;
+    while(getWord(beginSearch, &word)){
+        LettersToStart(word);
+        beginSearch += (word.end + 1 - beginSearch);
     }
 }

@@ -30,6 +30,12 @@ void getWordReverse(char *str, char *end, WordDescriptor *word);
 
 void changeWords_numb(char *s);
 
+int isNumb(char *s);
 
+int isNotNumb(char *s);
+
+void LettersToStart(WordDescriptor word);
+
+void changeWords_Letters(char *s);
 
 #endif //LAB_PROCESSING_STRING_H
