@@ -151,6 +151,27 @@ void test_two_fourth(){
     ASSERT_STRING("hhh   dd  f", str3);
 }
 
+void test_one_fifth(){
+    char source[MAX_STRING_SIZE] = "hello world";
+    char w1[MAX_STRING_SIZE] = "hello";
+    char w2[MAX_STRING_SIZE] = "hi";
+    replace(source, w1, w2);
+    ASSERT_STRING("hi world", source);
+}
+void test_two_fifth(){
+    char s[] = "hello hello hello hello hello";
+    char s1[] = "hello";
+    char s2[] = "RT";
+    replace(s, s1, s2);
+    ASSERT_STRING("RT RT RT RT RT", s);
+}
+void test_three_fifth(){
+    char s[] = "adfg adfg adfg adfg ,adfg";
+    char s1[] = "adfg";
+    char s2[] = "hhh";
+    replace(s, s1, s2);
+    ASSERT_STRING("hhh hhh hhh hhh ,adfg", s);
+}
 
 
 void test_for_18_laba(){
@@ -173,5 +194,7 @@ void test_for_18_laba(){
     test_LettersToStart_second();
     test_one_fourth();
     test_two_fourth();
-
+    test_one_fifth();
+    test_two_fifth();
+    test_three_fifth();
 }
