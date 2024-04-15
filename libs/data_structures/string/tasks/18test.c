@@ -177,7 +177,30 @@ void test_three_fifth(){
 }
 
 
-
+void test_areWordsEqual_first(){
+    char s1[] = "abc";
+    char s2[] = "abcg";
+    WordDescriptor w1, w2;
+    getWord(s1,&w1);
+    getWord(s2,&w2);
+    ASSERT_STRING_INT(0, areWordsEqual_comparison(w1, w2));
+}
+void test_areWordsEqual_second(){
+    char s1[] = "abc";
+    char s2[] = "abc";
+    WordDescriptor w1, w2;
+    getWord(s1,&w1);
+    getWord(s2,&w2);
+    ASSERT_STRING_INT(2, areWordsEqual_comparison(w1, w2));
+}
+void test_areWordsEqual_third(){
+    char s1[] = "bcd";
+    char s2[] = "abcd";
+    WordDescriptor w1, w2;
+    getWord(s1,&w1);
+    getWord(s2,&w2);
+    ASSERT_STRING_INT(1, areWordsEqual_comparison(w1, w2));
+}
 
 
 
@@ -204,4 +227,7 @@ void test_for_18_laba(){
     test_one_fifth();
     test_two_fifth();
     test_three_fifth();
+    test_areWordsEqual_first();
+    test_areWordsEqual_second();
+    test_areWordsEqual_third();
 }
