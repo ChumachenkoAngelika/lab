@@ -47,4 +47,7 @@ void replace(char *source, char *w1, char *w2);
 
 int areWordsEqual_comparison(WordDescriptor w1, WordDescriptor w2);
 
+bool OrderedWords(char *s);
+
+
 #endif //LAB_PROCESSING_STRING_H

@@ -221,3 +221,26 @@ int areWordsEqual_comparison(WordDescriptor w1, WordDescriptor w2){
     }
     return 2;
 }
+
+bool OrderedWords(char *s){
+    WordDescriptor word1;
+    WordDescriptor word2;
+    char *begin = s;
+    while (*begin!='\0'){
+        getWord(begin, &word1);
+        begin+= (word1.end - word1.begin)+1;
+        if(*begin == '\0') {
+            if (areWordsEqual_comparison(word2, word1) == 1)
+                return false;
+            break;
+        }
+        getWord(begin, &word2);
+        if(areWordsEqual_comparison(word1, word2) == 1)
+            return false;
+        begin+= (word2.end - word2.begin)+1;
+        if(*begin == '\0')
+            break;
+    }
+    return true;
+}
+

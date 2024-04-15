@@ -5,6 +5,9 @@
 #define ASSERT_STRING(expected, got) assertString(expected, got, __FILE__, __FUNCTION__, __LINE__)
 
 
+#define ASSERT_STRING_INT(expected, got) assertStringInt(expected, got, __FILE__, __FUNCTION__, __LINE__)
+
+
 void assertString(const char *expected, char *got, char const *fileName, char const *funcName, int line) {
     if (!strcmp_(expected, got)) {
         fprintf(stderr, "File %s\n", fileName);
@@ -172,6 +175,10 @@ void test_three_fifth(){
     replace(s, s1, s2);
     ASSERT_STRING("hhh hhh hhh hhh ,adfg", s);
 }
+
+
+
+
 
 
 void test_for_18_laba(){
