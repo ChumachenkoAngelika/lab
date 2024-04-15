@@ -2,40 +2,39 @@
 #ifndef LAB_PROCESSING_STRING_H
 #define LAB_PROCESSING_STRING_H
 
+#include <corecrt.h>
+#include "string_.h"
 #include <stdbool.h>
 
+#define MAX_STRING_SIZE 100
+#define MAX_N_WORDS_IN_STRING 100
+#define MAX_WORD_SIZE 20
 typedef struct WordDescriptor {
-    char *begin; // позиция начала слова
-    char *end; // позиция первого символа, после последнего символа слова
+char *begin;
+char *end;
 } WordDescriptor;
+typedef struct BagOfWords {
+    WordDescriptor words[MAX_N_WORDS_IN_STRING];
+    size_t size;} BagOfWords;
 
+//получает конец
 char *getEndOfString(char *s);
-
-
+bool isspase_(char *s);
+//убирает пробелы
 void removeNonLetters(char *s);
-
-
+//Преобразовать строку, оставляя только один символ в каждой последовательности подряд идущих одинаковых символов
 void removeAdjacentEqualLetters(char *s);
-
-
+//Сократить количество пробелов между словами данного предложения до одного
 void removeExtraSpaces(char *s);
-
+// выражаем слово из строки
 int getWord(char *beginSearch, WordDescriptor *word);
-
+// выражаем слова из строки начиная с конца
+bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word);
+//цифры записывает в начало слова в обратном порядке,//а буквы в конец слова без изменения порядка
 void digitToStart(WordDescriptor word);
-
-void reverseString(char *begin, char *end);
-
-void getWordReverse(char *str, char *end, WordDescriptor *word);
-
 void changeWords_numb(char *s);
-
-int isNumb(char *s);
-
-int isNotNumb(char *s);
-
+//буквы записывает в начало слова в обратном порядке,//а цифры в конец слова без изменения порядка
 void LettersToStart(WordDescriptor word);
 
 void changeWords_Letters(char *s);
-
 #endif //LAB_PROCESSING_STRING_H

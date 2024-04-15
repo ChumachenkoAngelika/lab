@@ -1,101 +1,118 @@
 #include <stdio.h>
-#include <string.h>
+#include "../processing_string.h"
 #include "../string_.h"
 #include "../processing_string.h"
 
-#define ASSERT_STRING(expected, got) assertString(expected, got, \
-__FILE__, __FUNCTION__, __LINE__)
+#define ASSERT_STRING(expected, got) assertString(expected, got, __FILE__, __FUNCTION__, __LINE__)
+#define ASSERT_STRING_INT(expected, got) assertStringInt(expected, got, FILE, FUNCTION, __LINE__)
 
-
-
-void assertString(const char *expected, char *got,
-                  char const *fileName, char const *funcName,
-                  int line) {
-    if (strcmp_(expected, got)) {
+void assertString(const char *expected, char *got, char const *fileName, char const *funcName, int line) {
+    if (!strcmp_(expected, got)) {
         fprintf(stderr, "File %s\n", fileName);
         fprintf(stderr, "%s - failed on line %d\n", funcName, line);
         fprintf(stderr, "Expected: \"%s\"\n", expected);
         fprintf(stderr, "Got: \"%s\"\n\n", got);
-    } else
+    } else {
         fprintf(stderr, "%s - OK\n", funcName);
+    }
 }
 
-
-//1 номер
-void test_removeNonLetters_with_spaces(){
-    char words[] = "hello, hey world";
+void assertStringInt(int expected, int got, char const *fileName, char const *funcName, int line) {
+    if (expected != got) {
+        fprintf(stderr, "File %s\n", fileName);
+        fprintf(stderr, "%s - failed on line %d\n", funcName, line);
+        fprintf(stderr, "Expected: \"%d\"\n", expected);
+        fprintf(stderr, "Got: \"%d\"\n\n", got);
+    } else {
+        fprintf(stderr, "%s - OK\n", funcName);
+    }
+}
+// Task 1
+void test_removeNonLetters_first() {
+    char words[] = "hello, how are you";
     removeNonLetters(words);
-    ASSERT_STRING("hello,heyworld", words);
+    ASSERT_STRING("hello,howareyou", words);
 }
 
-void test_removeNonLetters_with_spaces2(){
-    char words[] = "123            5677 \n hjitg";
+void test_removeNonLetters_second() {
+    char words[] = "hi 12 3     25548\n 15 jkk";
     removeNonLetters(words);
-    ASSERT_STRING("1235677hjitg", words);
+    ASSERT_STRING("hi1232554815jkk", words);
 }
 
+void test_removeNonLetters_third() {
+    char words[] = "hi1232554815jkk";
+    removeNonLetters(words);
+    ASSERT_STRING("hi1232554815jkk", words);
+}
 
-void test_removeNonLetters_only_spaces(){
-    char words[] = "        ";
+void test_removeNonLetters_fourth() {
+    char words[] = "  ";
     removeNonLetters(words);
     ASSERT_STRING("", words);
-
 }
 
-void test_removeNonLetters_without_spaces(){
-    char words[] = "1234567890";
-    removeNonLetters(words);
-    ASSERT_STRING("1234567890", words);
-}
-
-
-
-//2 номер
-//обычный тест
-void test_removeAdjacentEqualLetters_usual(){
-    char words[] = "aaabbbcccdddeee";
+// Task 2.1
+void test_removeAdjacentEqualLetters_first() {
+    char words[] = "aaaaa";
     removeAdjacentEqualLetters(words);
-    ASSERT_STRING("abcde", words);
+    ASSERT_STRING("a", words);
 }
 
-void test_removeAdjacentEqualLetters_empty_string(){
+void test_removeAdjacentEqualLetters_second() {
+    char words[] = "aaa bb bb";
+    removeAdjacentEqualLetters(words);
+    ASSERT_STRING("a b b", words);
+}
+
+void test_removeAdjacentEqualLetters_third() {
+    char words[] = "  ";
+    removeAdjacentEqualLetters(words);
+    ASSERT_STRING(" ", words);
+}
+
+void test_removeAdjacentEqualLetters_fourth() {
     char words[] = "";
     removeAdjacentEqualLetters(words);
     ASSERT_STRING("", words);
 }
 
-
-void test_removeAdjacentEqualLetters_one_symbol(){
-    char words[] = "a";
-    removeAdjacentEqualLetters(words);
-    ASSERT_STRING("a", words);
-}
-
-
-void test_removeExtraSpaces_extra_spaces(){
-    char words[] = "   Hello  World   !   ";
+// Task 2.2
+void test_removeExtraSpaces_first() {
+    char words[] = "aaaaa";
     removeExtraSpaces(words);
-    ASSERT_STRING(" Hello World ! ", words);
+    ASSERT_STRING("aaaaa", words);
 }
 
+void test_removeExtraSpaces_second() {
+    char words[] = "aaa  bb  b";
+    removeExtraSpaces(words);
+    ASSERT_STRING("aaa bb b", words);
+}
 
-void test_removeExtraSpaces_only_spaces(){
-    char words[] = "     ";
+void test_removeExtraSpaces_third() {
+    char words[] = "  ";
     removeExtraSpaces(words);
     ASSERT_STRING(" ", words);
 }
 
-void test_removeExtraSpaces_without_spaces(){
-    char words[] = "Hello,World!";
+void test_removeExtraSpaces_fourth() {
+    char words[] = "";
     removeExtraSpaces(words);
-    ASSERT_STRING("Hello,World!", words);
+    ASSERT_STRING("", words);
 }
 
-
+// Task 3
 void test_digitToStart_first() {
-    char s[] = "81F822";
+    char s[] = "hello81 F822";
     changeWords_numb(s);
-    ASSERT_STRING("18228F", s);
+    ASSERT_STRING("18hello 228F", s);
+}
+
+void test_digitToStart_second() {
+    char s[] = "hello81 zxc123456789 856947";
+    changeWords_numb(s);
+    ASSERT_STRING("18hello 987654321zxc 749658", s);
 }
 
 void test_digitToStart_third() {
@@ -107,24 +124,39 @@ void test_digitToStart_third() {
 void test_getWordReverse() {
     WordDescriptor word;
     char s[] = "123 222 8585";
-    getWordReverse(s, s + strlen(s) - 1, &word);
+    getWordReverse(s, s + strlen_(s) - 1, &word);
     ASSERT_STRING("8585", word.begin);
 }
 
+// Solution for Task 1
+void test_LettersToStart_first() {
+    char s[] = "hello81 tF822";
+    changeWords_Letters(s);
+    ASSERT_STRING("olleh81 Ft822", s);
+}
+
+void test_LettersToStart_second() {
+    char s[] = "18hello 987654321zxc 749658";
+    changeWords_Letters(s);
+    ASSERT_STRING("olleh18 cxz987654321 749658", s);
+}
 
 void test_for_18_laba(){
-    test_removeNonLetters_with_spaces();
-    test_removeNonLetters_with_spaces2();
-    test_removeNonLetters_only_spaces();
-    test_removeNonLetters_without_spaces();
-    test_removeAdjacentEqualLetters_usual();
-    test_removeAdjacentEqualLetters_empty_string();
-    test_removeAdjacentEqualLetters_one_symbol();
-    test_removeExtraSpaces_extra_spaces();
-    test_removeExtraSpaces_only_spaces();
-    test_removeExtraSpaces_without_spaces();
+    test_removeNonLetters_first();
+    test_removeNonLetters_second();
+    test_removeNonLetters_third();
+    test_removeNonLetters_fourth();
+    test_removeAdjacentEqualLetters_first();
+    test_removeAdjacentEqualLetters_second();
+    test_removeAdjacentEqualLetters_third();
+    test_removeAdjacentEqualLetters_fourth();
+    test_removeExtraSpaces_first();
+    test_removeExtraSpaces_second();
+    test_removeExtraSpaces_third();
+    test_removeExtraSpaces_fourth();
     test_digitToStart_first();
+    test_digitToStart_second();
     test_digitToStart_third();
-    test_getWordReverse();
-
+    test_LettersToStart_first();
+    test_LettersToStart_second();
 }

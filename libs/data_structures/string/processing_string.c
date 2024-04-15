@@ -1,180 +1,101 @@
-#include <stddef.h>
-#include "string_.h"
 #include "processing_string.h"
-#include <ctype.h>
-#include <string.h>
 
+BagOfWords _bag;
+BagOfWords _bag2;
 
+char _stringBuffer[MAX_STRING_SIZE + 1];
 
+//получает конец на \0
 char *getEndOfString(char *s){
-    while (*s != '\0'){
+    while(*s != '\0'){
         s++;
     }
-
     return s;
 }
-int isspase_(char *s){
+
+bool isspase_(char *s){
     return 0 == isspace(*s);
 }
-void removeNonLetters(char *s) {
+//убирает пробелы
+void removeNonLetters(char *s){
     char *endSource = getEndOfString(s);
     char *destination = copyIf(s, endSource, s, isspase_);
     *destination = '\0';
 }
 
+//Преобразовать строку, оставляя только один символ в каждой последовательности подряд идущих одинаковых символов
+bool AdjacentLetesIsNotEquale(char *s){
+    return *s != *(s-1);
+}
+
 void removeAdjacentEqualLetters(char *s){
-    if(s == NULL){
-        return;
-    }
-
-    int index = 0, length = strlen(s);
-    for(int i = 0; i < length; i++){
-        if(i == 0 || s[i] != s[i-1]){
-            s[index] = s[i];
-            index++;
-        }
-    }
-
-    s[index] = '\0';
+    char *endSource = getEndOfString(s);
+    char *destination = copyIf(s+1, endSource, s+1, AdjacentLetesIsNotEquale);
+    *destination = '\0';
 }
 
-
-
-
+//Сократить количество пробелов между словами данного предложения до
+//одного (void removeExtraSpaces(char *s))
+bool AdjacentSpaseIsNotEquale(char *s){
+    if(isspace(*s))
+        return ' ' != *(s-1);
+    return true;
+}
 void removeExtraSpaces(char *s){
-    if(s == NULL){
-        return;
-    }
-
-    int index = 0;
-    int i = 0;
-    int spaceCounter = 0;
-    while(s[i] != '\0'){
-        if(s[i] != ' '){ // если символ не пробел
-            s[index] = s[i];
-            index++;
-            spaceCounter = 0; // сброс счетчика
-        } else {
-            if(spaceCounter == 0){ // если это первый пробел
-                s[index] = s[i];
-                index++;
-            }
-            spaceCounter++;
-        }
-        i++;
-    }
-    s[index] = '\0';
+    char *endSource = getEndOfString(s);
+    char *destination = copyIf(s+1, endSource, s+1, AdjacentSpaseIsNotEquale);
+    *destination = '\0';
 }
 
-
-
-
-
-#define MAX_STRING_SIZE 100
-
-char _stringBuffer[MAX_STRING_SIZE + 1];
-
-
-
-int getWord(char *beginSearch, WordDescriptor *word) {
-    word->begin = beginSearch;
-    while (*beginSearch && !isalnum(*beginSearch)) {
-        beginSearch++;
-    }
-
-    if (*beginSearch == '\0') {
+// выражаем слово из строки
+int getWord(char *beginSearch, WordDescriptor *word){
+    word->begin = findNonSpace(beginSearch);
+    if (*word->begin == '\0')
         return 0;
-    }
-
-    word->begin = beginSearch;
-
-    while (*beginSearch && isalnum(*beginSearch)) {
-        beginSearch++;
-    }
-
-    word->end = beginSearch;
-
+    word->end = findSpace(word->begin);
     return 1;
 }
 
+// выражаем слова из строки начиная с конца
+bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word){
+    word->end = findNonSpaceReverse(rend, rbegin);
+    if (*word->end == '\0')
+        return false;
+    word->begin = findSpaceReverse(word->end, rbegin)+1;
+    return true;
+}
+
+
+bool isNumb(char *s){
+    return *s > 47 && *s <58;
+}
+bool isNotNumb(char *s){
+    return !(*s > 47 && *s < 58);
+}
 void digitToStart(WordDescriptor word) {
-    char *endStringBuffer = strcpy(_stringBuffer, word.begin);
-    char *recPosition = endStringBuffer;
-
-    while (endStringBuffer > _stringBuffer) {
-        if (isdigit(*endStringBuffer)) {
-            *recPosition = *endStringBuffer;
-            recPosition++;
-        }
-        endStringBuffer--;
-    }
-
-    while (word.begin < word.end) {
-        if (isalpha(*word.begin)) {
-            *recPosition = *word.begin;
-            recPosition++;
-        }
-        word.begin++;
-    }
+    char *endStringBuffer = copy(word.begin, word.end+1,_stringBuffer);
+    char *recPosition = copyIfReverse(endStringBuffer - 1,_stringBuffer - 1,word.begin, isNumb);
+    copyIf(_stringBuffer, endStringBuffer, recPosition, isNotNumb);
 }
 
-void reverseString(char *begin, char *end) {
-    while (begin < end) {
-        char temp = *begin;
-        *begin = *end;
-        *end = temp;
-        begin++;
-        end--;
+//цифры записывает в начало слова в обратном порядке,
+//а буквы в конец слова без изменения порядка
+void changeWords_numb(char *s){
+    char *beginSearch = s;
+    WordDescriptor word;
+    while(getWord(beginSearch, &word)){
+        digitToStart(word);
+        beginSearch += (word.end + 1 - beginSearch);
     }
 }
-
-void getWordReverse(char *str, char *end, WordDescriptor *word) {
-    word->begin = end;
-    while (end >= str && *end != ' ') {
-        end--;
-    }
-
-    if (end >= str) {
-        word->begin = end + 1;
-    }
-
-    while (end >= str && *end == ' ') {
-        end--;
-    }
-
-    return;
-}
-
-void changeWords_numb(char *s) {
-    char *start = s;
-    char *finish = s;
-    while (*finish != '\0') {
-        if (*finish >= '0' && *finish <= '9') {
-            while (*finish >= '0' && *finish <= '9') {
-                finish++;
-            }
-            reverseString(start, finish - 1);
-            start = finish;
-        } else {
-            finish++;
-        }
-    }
-}
-
-int isNumb(char *s) {
-    return (*s > 47 && *s < 58);
-}
-
-int isNotNumb(char *s) {
-    return !(*s > 47 && *s < 58) ? 1 : 0;
-}
-
+//противоположная для digitToStart, задача первая из 3 номера
 void LettersToStart(WordDescriptor word) {
-    char *endStringBuffer = copy(word.begin, word.end, _stringBuffer) - 1;
-    char *recPosition = copyIfReverse(endStringBuffer - 1, _stringBuffer - 1, word.begin, isNotNumb);
+    char *endStringBuffer = copy(word.begin, word.end,_stringBuffer);
+    char *recPosition = copyIfReverse(endStringBuffer - 1,_stringBuffer - 1,word.begin, isNotNumb);
     copyIf(_stringBuffer, endStringBuffer, recPosition, isNumb);
 }
 
+//буквы записывает в начало слова в обратном порядке,//а цифры в конец слова без изменения порядка
 void changeWords_Letters(char *s){
     char *beginSearch = s;
     WordDescriptor word;

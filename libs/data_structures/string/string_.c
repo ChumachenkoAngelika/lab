@@ -1,30 +1,42 @@
 #include "string_.h"
+#include <stdio.h>
 #include <memory.h>
 
-
-char* find(char *begin, char *end, int ch) {
+//подсчёт длины строки
+size_t strlen_(char *begin) {
+    char *end = begin;
+    while (*end != '\0') {
+        end++;
+    }
+    return end - begin;
+}
+//возвращает указатель//на первый элемент с кодом ch,
+char* find(char *begin, char *end, int ch){
     while (begin != end && *begin != ch)
         begin++;
     return begin;
 }
-
-
+//возвращает указатель на первый//символ, отличный от пробельных
 char* findNonSpace(char *begin){
-    while (isspace(*begin) && *begin != '\0') {
+    while (*begin != '\0'){
+        if(!(isspace(*begin))){
+            return begin;
+        }
         begin++;
     }
     return begin;
 }
-
+//возвращает указатель на первый пробельный символ
 char* findSpace(char *begin){
-    while (!isspace(*begin) && *begin != '\0'){
-        begin++;
+while (*begin != '\0'){
+    if(isspace(*begin)){
+        return begin;
     }
-    return begin;
+    begin++;
 }
-
-
-
+return begin;
+}
+//возвращает указатель на первый справа символ, отличный от пробельных
 char* findNonSpaceReverse(char *rbegin, const char *rend){
     while(rbegin != rend){
         if(!(isspace(*rbegin))){
@@ -34,40 +46,34 @@ char* findNonSpaceReverse(char *rbegin, const char *rend){
     }
     return rbegin;
 }
-
-//– возвращает указатель на первый пробельный символ справа, расположенный на ленте памяти,
-// начиная с rbegin и заканчивая rend. Если символ не найден,
-// возвращается адрес rend
-
+//возвращает указатепервый справа пробельный символ
 char* findSpaceReverse(char *rbegin, const char *rend){
-    while(rbegin != rend){
-        if(isspace(*rbegin)){
-            return rbegin;
-        }
-        rbegin--;
+while(rbegin != rend){
+    if(isspace(*rbegin)){
+        return rbegin;
     }
-    return rbegin;
+    rbegin--;
 }
-
-int strcmp_(const char *lhs, const char *rhs) {
-    while (*lhs != '\0' && *lhs == *rhs) {
+return rbegin;
+}
+//сравнение сторк, true если равны
+bool strcmp_(const char *lhs, const char *rhs){    while(*lhs == *rhs && *lhs != '\0'){
         lhs++;
         rhs++;
-    }
-    return *lhs - *rhs;
 }
-
-
-
-char* copy(const char* beginSource, const char* endSource, char* beginDestination) {
-    memcpy(beginDestination, beginSource, endSource - beginSource);
-    return beginDestination + (endSource - beginSource);
+    return *lhs == *rhs;}
+//записывает по адресу beginDestination
+//фрагмент памяти, начиная с адреса beginSource до end
+char* copy(const char *beginSource, const char *endSource, char *beginDestination){
+    memcpy(beginDestination, beginSource, endSource-beginSource);
+beginDestination += endSource - beginSource;
+return beginDestination;
 }
-
-
-char* copyIf(char *beginSource, const char *endSource, char *beginDestination, int (*f)(char*)){
+// записывает по адресу
+//beginDestination элементы из фрагмента памяти начиная с beginSource//заканчивая endSource, удовлетворяющие функции-предикату f
+char* copyIf(char *beginSource, const char *endSource, char *beginDestination, bool(*f)(char*)){
     while (beginSource < endSource){
-        if (f(beginSource)){
+        if(f(beginSource)){
             *beginDestination = *beginSource;
             beginDestination++;
         }
@@ -75,33 +81,15 @@ char* copyIf(char *beginSource, const char *endSource, char *beginDestination, i
     }
     return beginDestination;
 }
-
-// Функция, которая определяет, является ли символ буквой
-int isLetter(int f){
-    return (f >= 'a' && f <= 'z') && (f >= 'A' && f <= 'Z');
-}
-
-int isDigit(int f){
-    return (f >= '0' && f <= '9');
-}
-
-char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(char*)){
-    while (rbeginSource >= rendSource) {
-        if (f(rbeginSource)) {
+//// записывает по адресу
+////beginDestination элементы из фрагмента памяти начиная с rbeginSource////заканчивая rendSource, удовлетворяющие функции-предикату f
+char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, bool(*f)(char*)){
+    while (rbeginSource > rendSource){
+        if(f(rbeginSource)){
             *beginDestination = *rbeginSource;
             beginDestination++;
         }
         rbeginSource--;
     }
-
     return beginDestination;
-}
-
-int isVowel(int f){
-    return f == 'a' || f == 'e' || f == 'i' || f == 'o' || f == 'u' || f == 'y';
-}
-
-int isOddDigits(int f) {
-    return f == '1' ||  f == '3' || f == '5' || f == '7' || f == '9';
-
 }
