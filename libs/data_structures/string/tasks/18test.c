@@ -242,7 +242,19 @@ void test_OrderedWords_fourth(){
 
 
 
+void test_one_eighth(){
+    char s[MAX_STRING_SIZE] = "pp, aa, bb, cc, dd";
+    ASSERT_STRING_INT(5, count_palindrome(s));
+}
+void test_two_eighth(){
+    char s[MAX_STRING_SIZE] = "aa, bb, cac, fghj";
+    ASSERT_STRING_INT(3, count_palindrome(s));
+}
 
+void test_three_eighth(){
+    char s[MAX_STRING_SIZE] = "gyhyt, jkiugf, ptre, kijig";
+    ASSERT_STRING_INT(0, count_palindrome(s));
+}
 
 void test_for_18_laba(){
     test_removeNonLetters_first();
@@ -274,4 +286,7 @@ void test_for_18_laba(){
     test_OrderedWords_second();
     test_OrderedWords_third();
     test_OrderedWords_fourth();
+    test_one_eighth();
+    test_two_eighth();
+    test_three_eighth();
 }
