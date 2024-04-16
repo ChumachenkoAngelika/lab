@@ -271,3 +271,44 @@ void print_string_revers(char *s){
 }
 
 
+
+int count_palindrome(char *s){
+    char *begin = s;
+    WordDescriptor word;
+    int count = 0;
+    while (*begin != '\0'){
+        bool flag = true;
+        getWord(begin, &word);
+        if(word.end-word.begin>1){
+            char *end = copy(word.begin, word.end, _stringBuffer);
+            if (*(end - 1) == ',') {
+                end -= 2;
+                *(end - 1) = '\0';
+            } else {
+                *end = '\0';
+                end--;
+            }
+            char *start = _stringBuffer;
+            for (int i = 0; i < strlen_(_stringBuffer) / 2; i++) {
+                if (*start > 64 && *start < 91) {
+                    *start += 32;
+                }
+                if (*end > 64 && *end < 91) {
+                    *end += 32;
+                }
+                if (*start != *end) {
+                    flag = false;
+                    break;
+                }
+                start++;
+                end--;
+            }
+            if (flag) {
+                count++;
+            }
+        }
+        begin+=word.end-word.begin + 1;
+    }
+    return count;
+}
+

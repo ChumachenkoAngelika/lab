@@ -49,9 +49,11 @@ int areWordsEqual_comparison(WordDescriptor w1, WordDescriptor w2);
 
 bool OrderedWords(char *s);
 
-
 void getBagOfWords(BagOfWords *bag, char *s);
 
-
 void print_string_revers(char *s);
+
+int count_palindrome(char *s);
+
+
 #endif //LAB_PROCESSING_STRING_H
