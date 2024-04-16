@@ -367,7 +367,7 @@ void reverse_string(char *s){
     getBagOfWords(&_bag, _stringBuffer);
     char *begin = s;
     while(_bag.size > 0){
-        copy(_bag.words[_bag.size-1].begin,_bag.words[_bag.size1].end,begin);
+        copy(_bag.words[_bag.size-1].begin,_bag.words[_bag.size-1].end,begin);
         begin += _bag.words[_bag.size-1].end - _bag.words[_bag.size-1].begin;
         *begin = ' ';
         begin++;

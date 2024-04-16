@@ -278,7 +278,16 @@ void test_switch_words_third(){
     ASSERT_STRING("fff kkk ggg lll hhh qqq jjj www mmmmm fffffffafa", ans);
 }
 
-
+void test_reverse_string_first(){
+    char s[MAX_STRING_SIZE] = "fff ggg hhh jjj";
+    reverse_string(s);
+    ASSERT_STRING("jjj hhh ggg fff", s);
+}
+void test_reverse_string_second(){
+    char s[MAX_STRING_SIZE] = "a d f g";
+    reverse_string(s);
+    ASSERT_STRING("g f d a", s);
+}
 
 void test_for_18_laba(){
     test_removeNonLetters_first();
@@ -316,4 +325,6 @@ void test_for_18_laba(){
     test_switch_words_first();
     test_switch_words_second();
     test_switch_words_third();
+    test_reverse_string_first();
+    test_reverse_string_second();
 }
