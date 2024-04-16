@@ -357,3 +357,22 @@ void switch_words(char *s1, char *s2, char *ans){
         *(end) = '\0';
     }
 }
+
+
+
+void reverse_string(char *s){
+    char *end_stringBuffer = copy(s, s+ strlen_(s),_stringBuffer);
+    *end_stringBuffer = '\0';
+    removeExtraSpaces(_stringBuffer);
+    getBagOfWords(&_bag, _stringBuffer);
+    char *begin = s;
+    while(_bag.size > 0){
+        copy(_bag.words[_bag.size-1].begin,_bag.words[_bag.size1].end,begin);
+        begin += _bag.words[_bag.size-1].end - _bag.words[_bag.size-1].begin;
+        *begin = ' ';
+        begin++;
+        _bag.size--;
+    }
+    *(begin-1) = '\0';
+}
+
