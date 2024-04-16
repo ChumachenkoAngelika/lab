@@ -256,6 +256,27 @@ void test_three_eighth(){
     ASSERT_STRING_INT(0, count_palindrome(s));
 }
 
+void test_switch_words_first(){
+    char s1[MAX_STRING_SIZE] = "";
+    char s2[MAX_STRING_SIZE] = "";
+    char ans[MAX_STRING_SIZE];
+    switch_words(s1,s2,ans);
+    ASSERT_STRING("", ans);
+}
+void test_switch_words_second(){
+    char s1[MAX_STRING_SIZE] = "lll ggg sss";
+    char s2[MAX_STRING_SIZE] = "aaa ggg ttt";
+    char ans[MAX_STRING_SIZE];
+    switch_words(s1,s2,ans);
+    ASSERT_STRING("lll aaa ggg ggg sss ttt", ans);
+}
+void test_switch_words_third(){
+    char s1[MAX_STRING_SIZE] = "fff ggg hhh jjj mmmmm fffffffafa";
+    char s2[MAX_STRING_SIZE] = "kkk lll qqq www";
+    char ans[MAX_STRING_SIZE];
+    switch_words(s1,s2,ans);
+    ASSERT_STRING("fff kkk ggg lll hhh qqq jjj www mmmmm fffffffafa", ans);
+}
 
 
 void test_for_18_laba(){
@@ -291,5 +312,7 @@ void test_for_18_laba(){
     test_one_eighth();
     test_two_eighth();
     test_three_eighth();
-
+    test_switch_words_first();
+    test_switch_words_second();
+    test_switch_words_third();
 }
