@@ -256,6 +256,8 @@ void test_three_eighth(){
     ASSERT_STRING_INT(0, count_palindrome(s));
 }
 
+
+
 void test_for_18_laba(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -289,4 +291,5 @@ void test_for_18_laba(){
     test_one_eighth();
     test_two_eighth();
     test_three_eighth();
+
 }

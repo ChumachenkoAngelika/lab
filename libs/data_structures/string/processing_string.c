@@ -312,3 +312,48 @@ int count_palindrome(char *s){
     return count;
 }
 
+
+void switch_words(char *s1, char *s2, char *ans){
+    WordDescriptor word1, word2;
+    int isW1Found, isW2Found;
+    char *beginSearch1 = s1, *beginSearch2 = s2;
+    bool flag = true;
+    char *ptr_stringBuffer = _stringBuffer;
+    while ((isW1Found = getWord(beginSearch1, &word1)),
+            (isW2Found = getWord(beginSearch2, &word2)),
+            isW1Found == 1 && isW2Found == 1) {
+        if(flag){
+            ptr_stringBuffer = copy(word1.begin, word1.end,
+                                    ptr_stringBuffer);
+            *ptr_stringBuffer = ' ';
+            ptr_stringBuffer++;
+            flag = false;
+            beginSearch1+=word1.end-word1.begin+1;
+        } else{
+            ptr_stringBuffer = copy(word2.begin, word2.end,
+                                    ptr_stringBuffer);
+            *ptr_stringBuffer = ' ';
+            ptr_stringBuffer++;
+            flag = true;
+            beginSearch2+=word2.end-word2.begin+1;
+        }
+    }
+    *(ptr_stringBuffer-1) = '\0';
+    char *end_ans = copy(_stringBuffer,ptr_stringBuffer,ans);
+    if(getWord(beginSearch1, &word1) == 1){
+        *(ptr_stringBuffer-1) = ' ';
+        size_t len1 = strlen_(s1);
+        word1.begin--;
+        *word1.begin = ' ';
+        char *end = copy(word1.begin,s1+len1,end_ans - 1);
+        *end = '\0';
+    }
+    if(getWord(beginSearch2, &word2) == 1){
+        *(ptr_stringBuffer-1) = ' ';
+        size_t len2 = strlen_(s2);
+        word2.begin--;
+        *word2.begin = ' ';
+        char *end = copy(word2.begin,s2+len2,end_ans - 1);
+        *(end) = '\0';
+    }
+}
