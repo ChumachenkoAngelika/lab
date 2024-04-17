@@ -84,4 +84,10 @@ WordDescriptor wordBeforeEqualeWords(char *s1, char *s2);
 
 void DeletePalindrome(char *s);
 
+
+void additionString(char *s1, char *s2, int n1, int n2);
+
+
+bool allLettersInString(char *s, char *word);
+
 #endif //LAB_PROCESSING_STRING_H

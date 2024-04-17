@@ -680,3 +680,67 @@ void DeletePalindrome(char *s){
     end = copy(begin_str, end, s);
     *end = '\0';
 }
+
+
+
+
+void additionString(char *s1, char *s2, int n1, int n2){
+    if(n1 < n2){
+        getBagOfWords(&_bag,s2);
+        char *end = getEndOfString(s1);
+        *end = ' ';
+        end++;
+        while(n1 < n2){
+            end = copy(_bag.words[n1].begin, _bag.words[n1].end, end);
+            *end = ' ';
+            end++;
+            n1++;
+        }
+        *(end-1) = '\0';
+        _bag.size = 0;
+    }
+    if(n2 < n1){
+        getBagOfWords(&_bag,s1);
+        char *end = getEndOfString(s2);
+        *end = ' ';
+        end++;
+        while(n2 < n1){
+            end = copy(_bag.words[n2].begin, _bag.words[n2].end, end);
+            *end = ' ';
+            end++;
+            n2++;
+        }
+        *(end-1) = '\0';
+        _bag.size = 0;
+    }
+}
+
+bool allLettersInString(char *s, char *word){
+    char *begin_word = word;
+    char *begin_str = s;
+    bool arr[26];
+    bool arr_peter[26];
+    int len = 0;
+    for(int i = 0; i < 26;i++){
+        arr[i] = false;
+        arr_peter[i] = false;
+    }
+    while (*begin_word != '\0'){
+        arr[*begin_word-97] = true;
+        if(arr_peter[*begin_word-97] == false)
+            len++;
+        arr_peter[*begin_word - 97] = true;
+        begin_word++;
+    }
+    int count = 0;
+    while(*begin_str != '\0'){
+        if(arr[*begin_str - 97] == true && arr_peter[*begin_str - 97] ==
+                                           true){
+            count++;
+            arr_peter[*begin_str - 97] = false;
+        }
+        begin_str++;
+    }
+    return count == len;
+}
+
