@@ -61,6 +61,10 @@ void reverse_string(char *s);
 
 void printWordBeforeFirstWordWithA(char *s);
 
+void wordDescriptorToString(WordDescriptor word, char *destination);
 
+bool word_in_string(WordDescriptor w, char *s);
+
+WordDescriptor wordFromEndFirstLineWhichStayInSecondLine(char *s1, char *s2);
 
 #endif //LAB_PROCESSING_STRING_H

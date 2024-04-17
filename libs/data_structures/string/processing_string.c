@@ -426,3 +426,51 @@ void printWordBeforeFirstWordWithA(char *s){
     printf("\n");
 }
 
+
+
+
+void wordDescriptorToString(WordDescriptor word, char *destination){
+    char *end = copy(word.begin,word.end,destination);
+    *end = '\0';
+}
+
+bool word_in_string(WordDescriptor w, char *s){
+    char *end = copy(s, s+ strlen_(s), _stringBuffer);
+    *end = '\0';
+    removeExtraSpaces(_stringBuffer);
+    char *begin = _stringBuffer;
+    WordDescriptor word;
+    while (*begin!='\0'){
+        int check = getWord(begin, &word);
+        if(check == 0)
+            return false;
+        bool flag = w.end-w.begin == word.end - word.begin;
+        while(word.begin != word.end && w.end-w.begin == word.end -
+                                                         word.begin){
+            if(*word.begin!=*w.begin){
+                flag = false;
+                break;
+            }
+            word.begin++;
+            w.begin++;
+        }
+        if(flag){
+            return true;
+        }
+        begin = word.end;
+    }
+    return false;
+}
+// Определить последнее из слов первой строки, которое есть
+//во второй строке, иначе вернёт первое слово в первой строке
+WordDescriptor wordFromEndFirstLineWhichStayInSecondLine(char *s1, char *s2){
+    getBagOfWords(&_bag, s1);
+    while (_bag.size > 0){
+        if(word_in_string(_bag.words[_bag.size-1], s2)){
+            return _bag.words[_bag.size-1];
+        }
+        _bag.size--;
+    }
+    return _bag.words[_bag.size];
+}
+
