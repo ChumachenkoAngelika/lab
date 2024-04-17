@@ -59,5 +59,8 @@ void switch_words(char *s1, char *s2, char *ans);
 
 void reverse_string(char *s);
 
+void printWordBeforeFirstWordWithA(char *s);
+
+
 
 #endif //LAB_PROCESSING_STRING_H
