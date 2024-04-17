@@ -641,3 +641,42 @@ WordDescriptor wordBeforeEqualeWords(char *s1, char *s2){
     return asnFalse;
 }
 
+
+void DeletePalindrome(char *s){
+    char *begin = s;
+    char *beginDest = s;
+    WordDescriptor word;
+    char *end = _stringBuffer;
+    char *begin_str = _stringBuffer;
+    while(*begin != '\0'){
+        getWord(begin, &word);
+        bool flag = true;
+        char *tempEnd = word.end;
+        char *tempBegin = word.begin;
+        int t = (tempEnd-tempBegin);
+        for (int i = 0; i < t / 2; i++) {
+            if (*word.begin > 64 && *word.begin < 91) {
+                *word.begin += 32;
+            }
+            if (*word.end-1 > 64 && *word.end-1 < 91) {
+                *word.end += 32;
+            }
+            if (*word.begin != *(word.end-1)) {
+                flag = false;
+                break;
+            }
+            word.begin++;
+            word.end--;
+        }
+        if (!flag || t == 1) {
+            end = copy(tempBegin,tempEnd,end);
+            *end = ' ';
+            end++;
+        }
+        begin = tempEnd;
+    }
+    *(end-1) = '\0';
+    end--;
+    end = copy(begin_str, end, s);
+    *end = '\0';
+}

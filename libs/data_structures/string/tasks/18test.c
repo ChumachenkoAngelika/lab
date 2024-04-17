@@ -461,6 +461,34 @@ void test_wordsWhitchNotEqualeWithLast_first(){
     ASSERT_STRING("ff ggg hh ds fd sssss", wordsWhitchNotEqualeWithLast(s));
 }
 
+
+void test_one_sixteenth(){
+    char *s1 = "ff ggg hh ds fd hhh hh";
+    char *s2 = "ghg hhh hh effff";
+    WordDescriptor ans = wordBeforeEqualeWords(s1,s2);
+    char ans_str[128];
+    wordDescriptorToString(ans,ans_str);
+    ASSERT_STRING("hhh", ans_str);
+}
+void tes_two_sixteenth(){
+    char *s1 = "ff ggg hh ds fd hhh hh";
+    char *s2 = "ghg hhh ss effff";
+    WordDescriptor ans = wordBeforeEqualeWords(s1,s2);
+    char ans_str[128];
+    wordDescriptorToString(ans,ans_str);
+    ASSERT_STRING("ghg", ans_str);
+}
+
+void test_three_sixteenth(){
+    char *s1 = "ff ggg hh ds fd hfsfs ghg";
+    char *s2 = "ghg hhh ss effff";
+    WordDescriptor ans = wordBeforeEqualeWords(s1,s2);
+    char ans_str[128];
+    wordDescriptorToString(ans,ans_str);
+    ASSERT_STRING("ff", ans_str);
+}
+
+
 void test_for_18_laba(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -516,4 +544,7 @@ void test_for_18_laba(){
     test_equalewords_second();
     test_reverseString();
     test_wordsWhitchNotEqualeWithLast_first();
+    test_one_sixteenth();
+    tes_two_sixteenth();
+    test_three_sixteenth();
 }

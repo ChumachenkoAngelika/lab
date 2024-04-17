@@ -82,6 +82,6 @@ char *wordsWhitchNotEqualeWithLast(char *s);
 
 WordDescriptor wordBeforeEqualeWords(char *s1, char *s2);
 
-
+void DeletePalindrome(char *s);
 
 #endif //LAB_PROCESSING_STRING_H
