@@ -501,6 +501,47 @@ void test_DeletePalindrome_second(){
     ASSERT_STRING("f fgff ggfg hfsh ffs ds hfsfs ghsg", s);
 }
 
+
+
+
+void test_additionString_first(){
+    char s1[MAX_STRING_SIZE] = "fgff ggg hfsh ff";
+    char s2[MAX_STRING_SIZE] = "fgggff ff hj ff ds fd";
+    additionString(s1,s2,4,6);
+    ASSERT_STRING("fgff ggg hfsh ff ds fd", s1);
+}
+void test_additionString_second(){
+    char s1[MAX_STRING_SIZE] = "fgggff ff hj ff ds fd";
+    char s2[MAX_STRING_SIZE] = "fgff ggg hfsh ff";
+    additionString(s1,s2,6,4);
+    ASSERT_STRING("fgff ggg hfsh ff ds fd", s2);
+}
+
+
+void test_allLettersInString_first(){
+    char s1[MAX_STRING_SIZE] = "fgggff ff hj ff as fd";
+    char s2[MAX_STRING_SIZE] = "aghj";
+    int ans;
+    if(allLettersInString(s1,s2)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
+void test_allLettersInString_second(){
+    char s1[MAX_STRING_SIZE] = "fgggff ff hj ff s fd";
+    char s2[MAX_STRING_SIZE] = "aghj";
+    int ans;
+    if(allLettersInString(s1,s2)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(0, ans);
+}
+
+
 void test_for_18_laba(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -561,4 +602,8 @@ void test_for_18_laba(){
     test_three_sixteenth();
     test_DeletePalindrome_first();
     test_DeletePalindrome_second();
+    test_additionString_first();
+    test_additionString_second();
+    test_allLettersInString_first();
+    test_allLettersInString_second();
 }
