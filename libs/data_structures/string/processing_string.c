@@ -541,7 +541,7 @@ bool equaleLettersInWordsInstring(char *s){
         size_t size = _bag.size;
         int count = 0;
         while (size > 0){
-            if(equaleLettersInwords(_bag.words[_bag.size-1],_bag.words[size1])){
+            if(equaleLettersInwords(_bag.words[_bag.size-1],_bag.words[size-1])){
                 count++;
                 if(count>1){
                     _bag.size = 0;

@@ -69,6 +69,9 @@ WordDescriptor wordFromEndFirstLineWhichStayInSecondLine(char *s1, char *s2);
 
 bool equaleWordsInstring(char *s);
 
+bool equaleLettersInwords(WordDescriptor w1, WordDescriptor w2);
+
+
 bool equaleLettersInWordsInstring(char *s);
 
 bool equalewords(WordDescriptor w1, WordDescriptor w2);

@@ -372,6 +372,59 @@ void test_three_thirteenth(){
 }
 
 
+
+void test_equaleLettersInwords_first(){
+    WordDescriptor w1,w2;
+    char s1[MAX_STRING_SIZE] = "asdf";
+    char s2[MAX_STRING_SIZE] = "fdsa";
+    getWord(s1,&w1);
+    getWord(s2,&w2);
+    int ans;
+    if(equaleLettersInwords(w1,w2)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
+void test_equaleLettersInwords_second(){
+    WordDescriptor w1,w2;
+    char s1[MAX_STRING_SIZE] = "dafs";
+    char s2[MAX_STRING_SIZE] = "fdsa";
+    getWord(s1,&w1);
+    getWord(s2,&w2);
+    int ans;
+    if(equaleLettersInwords(w2,w1)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
+
+void test_equaleLettersInWordsInstring_first(){
+    char s[MAX_STRING_SIZE] = "ddfs jeejjej kkkk fdsa dafs";
+    int ans;
+    if(equaleLettersInWordsInstring(s)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
+void test_equaleLettersInWordsInstring_second(){
+    char s[MAX_STRING_SIZE] = "ddfs jeejjej kkkk fdsa drfs";
+    int ans;
+    if(equaleLettersInWordsInstring(s)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(0, ans);
+}
+
+
+
 void test_for_18_laba(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -419,4 +472,8 @@ void test_for_18_laba(){
     test_one_thirteenth();
     test_two_thirteenth();
     test_three_thirteenth();
+    test_equaleLettersInwords_first();
+    test_equaleLettersInwords_second();
+    test_equaleLettersInWordsInstring_first();
+    test_equaleLettersInWordsInstring_second();
 }
