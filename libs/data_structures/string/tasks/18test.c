@@ -340,6 +340,37 @@ void test_wordFromEndFirstLineWhichStayInSecondLine_first(){
     ASSERT_STRING("gg", ans);
 }
 
+void test_one_thirteenth(){
+    char s2[MAX_STRING_SIZE] = "ss eee sgg egeg ss";
+    int ans;
+    if(equaleWordsInstring(s2)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
+void test_two_thirteenth(){
+    char s2[MAX_STRING_SIZE] = "s eee sgg egeg s";
+    int ans;
+    if(equaleWordsInstring(s2)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
+void test_three_thirteenth(){
+    char s2[MAX_STRING_SIZE] = "ss eee sgg egeg sg";
+    int ans;
+    if(equaleWordsInstring(s2)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(0, ans);
+}
+
 
 void test_for_18_laba(){
     test_removeNonLetters_first();
@@ -385,4 +416,7 @@ void test_for_18_laba(){
     test_wordDescriptorToString_first();
     test_word_in_string_second();
     test_wordFromEndFirstLineWhichStayInSecondLine_first();
+    test_one_thirteenth();
+    test_two_thirteenth();
+    test_three_thirteenth();
 }
