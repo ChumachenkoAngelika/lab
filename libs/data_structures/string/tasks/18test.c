@@ -309,6 +309,37 @@ void test_three_eleventh(){
 
 
 
+void test_wordDescriptorToString_first(){
+    char s[MAX_STRING_SIZE] = "hgh gg ggg";
+    WordDescriptor word;
+    char ans[MAX_STRING_SIZE];
+    getWord(s,&word);
+    wordDescriptorToString(word, ans);
+    ASSERT_STRING("hgh", ans);
+}
+void test_word_in_string_second(){
+    char s[MAX_STRING_SIZE] = "hgh gg ggg";
+    WordDescriptor word;
+    char string[MAX_STRING_SIZE] = "vnev eee edjvj egeg hgh";
+    int ans;
+    getWord(s,&word);
+    if(word_in_string(word,string)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
+
+void test_wordFromEndFirstLineWhichStayInSecondLine_first(){
+    char s1[MAX_STRING_SIZE] = "hgh gg ggg";
+    char s2[MAX_STRING_SIZE] = "vnev eee gg egeg ss";
+    WordDescriptor ansW = wordFromEndFirstLineWhichStayInSecondLine(s1,s2);
+    char ans [MAX_STRING_SIZE];
+    wordDescriptorToString(ansW,ans);
+    ASSERT_STRING("gg", ans);
+}
+
 
 void test_for_18_laba(){
     test_removeNonLetters_first();
@@ -351,5 +382,7 @@ void test_for_18_laba(){
     test_one_eleventh();
     test_two_eleventh();
     test_three_eleventh();
-
+    test_wordDescriptorToString_first();
+    test_word_in_string_second();
+    test_wordFromEndFirstLineWhichStayInSecondLine_first();
 }
