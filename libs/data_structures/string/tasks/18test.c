@@ -289,6 +289,24 @@ void test_reverse_string_second(){
     ASSERT_STRING("g f d a", s);
 }
 
+
+void test_one_eleventh(){
+    char s[MAX_STRING_SIZE] = " qqqq g dfd ahj";
+    printWordBeforeFirstWordWithA(s);
+
+}
+void test_two_eleventh(){
+    char s[MAX_STRING_SIZE] = " tttt g hkldk gggg";
+    printWordBeforeFirstWordWithA(s);
+    //ответ:нет слова с A, сошлось
+}
+void test_three_eleventh(){
+    char s[MAX_STRING_SIZE] = " ";
+    printWordBeforeFirstWordWithA(s);
+    //ответ: нет слов вообще, сошлось
+}
+
+
 void test_for_18_laba(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -327,4 +345,7 @@ void test_for_18_laba(){
     test_switch_words_third();
     test_reverse_string_first();
     test_reverse_string_second();
+    test_one_eleventh();
+    test_two_eleventh();
+    test_three_eleventh();
 }
