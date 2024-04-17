@@ -69,4 +69,12 @@ WordDescriptor wordFromEndFirstLineWhichStayInSecondLine(char *s1, char *s2);
 
 bool equaleWordsInstring(char *s);
 
+bool equaleLettersInWordsInstring(char *s);
+
+bool equalewords(WordDescriptor w1, WordDescriptor w2);
+
+char *reverseString(char *s);
+
+
+
 #endif //LAB_PROCESSING_STRING_H
