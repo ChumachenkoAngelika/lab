@@ -78,6 +78,8 @@ bool equalewords(WordDescriptor w1, WordDescriptor w2);
 
 char *reverseString(char *s);
 
+char *wordsWhitchNotEqualeWithLast(char *s);
+
 
 
 #endif //LAB_PROCESSING_STRING_H

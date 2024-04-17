@@ -584,3 +584,24 @@ char *reverseString(char *s){
     *(ans_begin+1) = '\0';
     return _stringBuffer1;
 }
+
+char *wordsWhitchNotEqualeWithLast(char *s){
+    getBagOfWords(&_bag, s);
+    size_t last_word = _bag.size - 1;
+    char *begin = _stringBuffer1;
+    _bag.size--;
+    char *end;
+    while (_bag.size > 0){
+        if(!equalewords(_bag.words[_bag.size-1], _bag.words[last_word])){
+            end = copy(_bag.words[_bag.size-1].begin, _bag.words[_bag.size1].end, begin);
+            *end = '\0';
+            begin+=_bag.words[_bag.size-1].end-_bag.words[_bag.size-1].begin;
+            *begin = ' ';
+            begin++;
+        }
+        _bag.size--;
+    }
+    *end = '\0';
+    reverse_string(_stringBuffer1);
+    return _stringBuffer1;
+}
