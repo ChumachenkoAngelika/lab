@@ -489,6 +489,18 @@ void test_three_sixteenth(){
 }
 
 
+
+void test_DeletePalindrome_first(){
+    char s[MAX_STRING_SIZE] = "fgff ggg hfsh ff ds fd hfsfs ghg";
+    DeletePalindrome(s);
+    ASSERT_STRING("fgff hfsh ds fd hfsfs", s);
+}
+void test_DeletePalindrome_second(){
+    char s[MAX_STRING_SIZE] = "f fgff ggfg hfsh ffs ds hfsfs ghsg";
+    DeletePalindrome(s);
+    ASSERT_STRING("f fgff ggfg hfsh ffs ds hfsfs ghsg", s);
+}
+
 void test_for_18_laba(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -547,4 +559,6 @@ void test_for_18_laba(){
     test_one_sixteenth();
     tes_two_sixteenth();
     test_three_sixteenth();
+    test_DeletePalindrome_first();
+    test_DeletePalindrome_second();
 }
