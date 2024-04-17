@@ -5,6 +5,8 @@ BagOfWords _bag;
 BagOfWords _bag2;
 
 char _stringBuffer[MAX_STRING_SIZE + 1];
+char _stringBuffer1[MAX_STRING_SIZE + 1];
+
 
 //получает конец на \0
 char *getEndOfString(char *s){
@@ -474,3 +476,29 @@ WordDescriptor wordFromEndFirstLineWhichStayInSecondLine(char *s1, char *s2){
     return _bag.words[_bag.size];
 }
 
+
+
+//есть ли в данной строке одинаковые слова
+bool equaleWordsInstring(char *s){
+    getBagOfWords(&_bag, s);
+    size_t index = 0;
+    while (_bag.size > 0){
+        char *end_stringBuffer1 = copy(s, s+ strlen_(s), _stringBuffer1);
+        *end_stringBuffer1 = '\0';
+        char temp[128];
+        wordDescriptorToString(_bag.words[_bag.size-1], temp);
+        index += strlen_(temp);
+        end_stringBuffer1-=index;
+        for(int i = 0; i < strlen_(temp); i++) {
+            *end_stringBuffer1 = ' ';
+            end_stringBuffer1++;
+        }
+        if(word_in_string(_bag.words[_bag.size-1], _stringBuffer1)){
+            _bag.size = 0;
+            return true;
+        }
+        _bag.size--;
+        index++;
+    }
+    return false;
+}

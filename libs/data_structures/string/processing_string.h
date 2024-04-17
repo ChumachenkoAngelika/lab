@@ -67,4 +67,6 @@ bool word_in_string(WordDescriptor w, char *s);
 
 WordDescriptor wordFromEndFirstLineWhichStayInSecondLine(char *s1, char *s2);
 
+bool equaleWordsInstring(char *s);
+
 #endif //LAB_PROCESSING_STRING_H
