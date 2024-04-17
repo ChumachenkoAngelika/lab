@@ -424,6 +424,42 @@ void test_equaleLettersInWordsInstring_second(){
 }
 
 
+void test_equalewords_first(){
+    WordDescriptor w1,w2;
+    char s1[MAX_STRING_SIZE] = "ddfs";
+    char s2[MAX_STRING_SIZE] = "ddfs";
+    getWord(s1,&w1);
+    getWord(s2,&w2);
+    int ans;
+    if(equalewords(w2,w1)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
+void test_equalewords_second(){
+    WordDescriptor w1,w2;
+    char s1[MAX_STRING_SIZE] = "ddfd";
+    char s2[MAX_STRING_SIZE] = "ddfs";
+    getWord(s1,&w1);
+    getWord(s2,&w2);
+    int ans;
+    if(equalewords(w2,w1)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(0, ans);
+}
+void test_reverseString(){
+    char s1[MAX_STRING_SIZE] = "asdffgg";
+    ASSERT_STRING("ggffdsa", reverseString(s1));
+}
+void test_wordsWhitchNotEqualeWithLast_first(){
+    char *s = "ff ggg hh ds fd sssss ll";
+    ASSERT_STRING("ff ggg hh ds fd sssss", wordsWhitchNotEqualeWithLast(s));
+}
 
 void test_for_18_laba(){
     test_removeNonLetters_first();
@@ -476,4 +512,8 @@ void test_for_18_laba(){
     test_equaleLettersInwords_second();
     test_equaleLettersInWordsInstring_first();
     test_equaleLettersInWordsInstring_second();
+    test_equalewords_first();
+    test_equalewords_second();
+    test_reverseString();
+    test_wordsWhitchNotEqualeWithLast_first();
 }

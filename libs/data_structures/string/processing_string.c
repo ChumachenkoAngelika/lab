@@ -593,7 +593,7 @@ char *wordsWhitchNotEqualeWithLast(char *s){
     char *end;
     while (_bag.size > 0){
         if(!equalewords(_bag.words[_bag.size-1], _bag.words[last_word])){
-            end = copy(_bag.words[_bag.size-1].begin, _bag.words[_bag.size1].end, begin);
+            end = copy(_bag.words[_bag.size-1].begin, _bag.words[_bag.size - 1].end, begin);
             *end = '\0';
             begin+=_bag.words[_bag.size-1].end-_bag.words[_bag.size-1].begin;
             *begin = ' ';
