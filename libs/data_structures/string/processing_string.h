@@ -80,6 +80,8 @@ char *reverseString(char *s);
 
 char *wordsWhitchNotEqualeWithLast(char *s);
 
+WordDescriptor wordBeforeEqualeWords(char *s1, char *s2);
+
 
 
 #endif //LAB_PROCESSING_STRING_H

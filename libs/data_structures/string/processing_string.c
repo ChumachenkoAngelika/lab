@@ -605,3 +605,39 @@ char *wordsWhitchNotEqualeWithLast(char *s){
     reverse_string(_stringBuffer1);
     return _stringBuffer1;
 }
+
+
+WordDescriptor wordBeforeEqualeWords(char *s1, char *s2){
+    char *start_ans = NULL;
+    char *begin1 = s1;
+    WordDescriptor w1,w2,ans,asnFalse;
+    char *begin2 = s2;
+    getWord(begin1, &asnFalse);
+    while (*begin1!='\0'){
+        int i = getWord(begin1, &w1);
+        if(i == 0)
+            return asnFalse;
+        if(word_in_string(w1,s2)){
+            while (*begin2!='\0'){
+                i = getWord(begin2,&w2);
+                if(i == 0)
+                    return asnFalse;
+                if(equalewords(w1, w2)){
+                    if(start_ans == NULL){
+                        return asnFalse;
+                    } else{
+                        return ans;
+                    }
+                }
+                begin2 = w2.end;
+                start_ans = w2.begin;
+                ans.begin = w2.begin;
+                ans.end = w2.end;
+            }
+            break;
+        }
+        begin1 = w1.end;
+    }
+    return asnFalse;
+}
+
