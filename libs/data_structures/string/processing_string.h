@@ -49,6 +49,8 @@ int areWordsEqual_comparison(WordDescriptor w1, WordDescriptor w2);
 
 bool OrderedWords(char *s);
 
+void parseStringToBagOfWords(BagOfWords *bag, char *s);
+
 void getBagOfWords(BagOfWords *bag, char *s);
 
 void print_string_revers(char *s);
@@ -66,6 +68,15 @@ void wordDescriptorToString(WordDescriptor word, char *destination);
 bool word_in_string(WordDescriptor w, char *s);
 
 WordDescriptor wordFromEndFirstLineWhichStayInSecondLine(char *s1, char *s2);
+int getLength(char *str);
+
+void copyAndClean(char *src);
+
+bool wordInString(WordDescriptor w, char *s);
+
+
+WordDescriptor lastWordFromFirstLineInSecondLine(char *s1, char *s2);
+
 
 bool equaleWordsInstring(char *s);
 

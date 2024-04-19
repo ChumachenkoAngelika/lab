@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <memory.h>
 #include "processing_string.h"
 
 BagOfWords _bag;
@@ -145,57 +146,30 @@ void replace(char *source, char *w1, char *w2) {
     *end__stringBuffer = '\0';
     char *readPtr, *recPtr;
     char *begin = source;
-    if (w1Size >= w2Size) {
-        readPtr = _stringBuffer;
-        recPtr = _stringBuffer;
-        while(*readPtr != '\0'){
-            WordDescriptor word;
-            getWord(readPtr, &word);
-            char temp_word[MAX_STRING_SIZE];
-            char *tempbegin = temp_word;
-            char *endtempword = copy(word.begin, word.end, tempbegin);
-            *endtempword = '\0';
-            if (strcmp_(temp_word, w1)) {
-                copy(w2, word2.end, begin);
-                begin += w2Size;
-                *begin = ' ';
-                begin++;
-                readPtr += w1Size + 1;
-            } else {
-                copy(word.begin, word.end, begin);
-                begin += word.end - word.begin;
-                *begin = ' ';
-                begin++;
-                readPtr += word.end - word.begin;
-            }
+    readPtr = _stringBuffer;
+    recPtr = _stringBuffer;
+    while(*readPtr != '\0'){
+        WordDescriptor word;
+        getWord(readPtr, &word);
+        char temp_word[MAX_STRING_SIZE];
+        char *tempbegin = temp_word;
+        char *endtempword = copy(word.begin, word.end, tempbegin);
+        *endtempword = '\0';
+        if (strcmp_(temp_word, w1)) {
+            copy(w2, word2.end, begin);
+            begin += w2Size;
+            *begin = ' ';
+            begin++;
+            readPtr += w1Size + 1;
+        } else {
+            copy(word.begin, word.end, begin);
+            begin += word.end - word.begin;
+            *begin = ' ';
+            begin++;
+            readPtr += word.end - word.begin;
         }
-        *(begin-1) = '\0';
-    } else {
-        readPtr = _stringBuffer;
-        recPtr = _stringBuffer;
-        while(*readPtr != '\0'){
-            WordDescriptor word;
-            getWord(readPtr, &word);
-            char temp_word[MAX_STRING_SIZE];
-            char *tempbegin = temp_word;
-            char *endtempword = copy(word.begin, word.end, tempbegin);
-            *endtempword = '\0';
-            if (strcmp_(temp_word, w1)) {
-                copy(w2, word2.end, begin);
-                begin += w2Size;
-                *begin = ' ';
-                begin++;
-                readPtr += w1Size + 1;
-            } else {
-                copy(word.begin, word.end, begin);
-                begin += word.end - word.begin;
-                *begin = ' ';
-                begin++;
-                readPtr += word.end - word.begin;
-            }
-        }
-        *(begin-1) = '\0';
     }
+    *(begin-1) = '\0';
 }
 
 //сравнение слов, словов w1 стоит выше чем w2 по алфавиту 0,
@@ -206,10 +180,10 @@ int areWordsEqual_comparison(WordDescriptor w1, WordDescriptor w2){
     while(*beginW1!='\0' && *beginW2!='\0'){
         char temp_letter_W1 = *beginW1;
         char temp_letter_W2 = *beginW2;
-        if(temp_letter_W1>='A' && temp_letter_W1 <= 'Z'){
+        if(temp_letter_W1>64 && temp_letter_W1 < 91){
             temp_letter_W1+=32;
         }
-        if(temp_letter_W2>='A' && temp_letter_W2 <= 'Z'){
+        if(temp_letter_W2>64 && temp_letter_W2 < 91){
             temp_letter_W2+=32;
         }
         if(temp_letter_W1 < temp_letter_W2)
@@ -225,51 +199,57 @@ int areWordsEqual_comparison(WordDescriptor w1, WordDescriptor w2){
     return 2;
 }
 
-bool OrderedWords(char *s){
-    WordDescriptor word1;
-    WordDescriptor word2;
+bool OrderedWords(char *s) {
     char *begin = s;
-    while (*begin!='\0'){
-        getWord(begin, &word1);
-        begin+= (word1.end - word1.begin)+1;
-        if(*begin == '\0') {
-            if (areWordsEqual_comparison(word2, word1) == 1)
-                return false;
+    WordDescriptor currentWord;
+    WordDescriptor nextWord;
+    while (*begin != '\0') {
+        getWord(begin, &currentWord);
+        begin += (currentWord.end - currentWord.begin) + 1;
+
+        if (*begin == '\0') {
             break;
         }
-        getWord(begin, &word2);
-        if(areWordsEqual_comparison(word1, word2) == 1)
+
+        getWord(begin, &nextWord);
+        begin += (nextWord.end - nextWord.begin) + 1;
+
+        if (areWordsEqual_comparison(currentWord, nextWord) == 1) {
             return false;
-        begin+= (word2.end - word2.begin)+1;
-        if(*begin == '\0')
-            break;
+        }
     }
+
     return true;
 }
 
 
-
-void getBagOfWords(BagOfWords *bag, char *s){
+void parseStringToBagOfWords(BagOfWords *bag, char *s) {
     char *begin = s;
-    while (*begin!='\0'){
+    while (*begin != '\0') {
         getWord(begin, &bag->words[bag->size]);
         begin += (bag->words[bag->size].end - bag->words[bag->size].begin);
         bag->size++;
-        if(*begin == '\0')
+        if (*begin == '\0')
             break;
         begin++;
     }
 }
-//выводит строку с конца
-void print_string_revers(char *s){
-    getBagOfWords(&_bag, s);
-    while(_bag.size>0){
-        while (_bag.words[_bag.size-1].begin != _bag.words[_bag.size-1].end){
-            printf("%c", *_bag.words[_bag.size-1].begin);
-            _bag.words[_bag.size-1].begin++;
+
+void getBagOfWords(BagOfWords *bag, char *s){
+    parseStringToBagOfWords(bag, s);
+}
+
+void print_string_revers(char *s) {
+    BagOfWords bag;
+    bag.size = 0;
+    parseStringToBagOfWords(&bag, s);
+    while (bag.size > 0) {
+        while (bag.words[bag.size - 1].begin != bag.words[bag.size - 1].end) {
+            printf("%c", *bag.words[bag.size - 1].begin);
+            bag.words[bag.size - 1].begin++;
         }
         printf("\n");
-        _bag.size--;
+        bag.size--;
     }
 }
 
@@ -388,8 +368,7 @@ void printWordBeforeFirstWordWithA(char *s){
     char *begin = _stringBuffer;
     WordDescriptor word;
     if(getWord(begin, &word) == 0) {
-        printf("no one word in string");
-        printf("\n");
+        printf("no one word in string\n");
         return;
     }
     while (*begin != '\0'){
@@ -408,8 +387,7 @@ void printWordBeforeFirstWordWithA(char *s){
         }
         if(flag){
             if (begin == _stringBuffer) {
-                printf("word with letter A first");
-                printf("\n");
+                printf("word with letter A first\n");
                 return;
             } else{
                 while(begin_lastWord != end_lastWord){
@@ -425,8 +403,8 @@ void printWordBeforeFirstWordWithA(char *s){
         begin_lastWord = word.begin;
         end_lastWord = word.end;
     }
-    printf("no one word with A");
-    printf("\n");
+    printf("no one word with A\n");
+
 }
 
 
@@ -448,8 +426,7 @@ bool word_in_string(WordDescriptor w, char *s){
         if(check == 0)
             return false;
         bool flag = w.end-w.begin == word.end - word.begin;
-        while(word.begin != word.end && w.end-w.begin == word.end -
-                                                         word.begin){
+        while(word.begin != word.end && w.end-w.begin == word.end - word.begin){
             if(*word.begin!=*w.begin){
                 flag = false;
                 break;
@@ -591,17 +568,20 @@ char *wordsWhitchNotEqualeWithLast(char *s){
     size_t last_word = _bag.size - 1;
     char *begin = _stringBuffer1;
     _bag.size--;
-    char *end;
+    char *end = begin;
+
     while (_bag.size > 0){
         if(!equalewords(_bag.words[_bag.size-1], _bag.words[last_word])){
-            end = copy(_bag.words[_bag.size-1].begin, _bag.words[_bag.size - 1].end, begin);
-            *end = '\0';
-            begin+=_bag.words[_bag.size-1].end-_bag.words[_bag.size-1].begin;
-            *begin = ' ';
-            begin++;
+            size_t word_length = _bag.words[_bag.size-1].end - _bag.words[_bag.size-1].begin;
+            memcpy(end, _bag.words[_bag.size-1].begin, word_length);
+            end += word_length;
+            *end = ' ';
+            end++;
         }
         _bag.size--;
     }
+    if (end > begin) // Check if any words were added
+        end--; // Remove the extra space added after the last word
     *end = '\0';
     reverse_string(_stringBuffer1);
     return _stringBuffer1;
@@ -656,13 +636,15 @@ void DeletePalindrome(char *s){
         char *tempBegin = word.begin;
         int t = (tempEnd-tempBegin);
         for (int i = 0; i < t / 2; i++) {
-            if (*word.begin >= 'A' && *word.begin <= 'Z') {
-                *word.begin += 32;
+            for (int j = 0; j < 2; j++) {
+                if (*(word.begin + j) >= 'A' && *(word.begin + j) <= 'Z') {
+                    *(word.begin + j) += 32;
+                }
+                if (*(word.end - j - 1) >= 'A' && *(word.end - j - 1) <= 'Z') {
+                    *(word.end - j - 1) += 32;
+                }
             }
-            if (*word.end-1 >= 'A' && *word.end-1 <= 'Z') {
-                *word.end += 32;
-            }
-            if (*word.begin != *(word.end-1)) {
+            if (*(word.begin) != *(word.end - 1)) {
                 flag = false;
                 break;
             }
@@ -681,7 +663,6 @@ void DeletePalindrome(char *s){
     end = copy(begin_str, end, s);
     *end = '\0';
 }
-
 
 
 
@@ -722,23 +703,28 @@ bool allLettersInString(char *s, char *word){
     bool arr[26];
     bool arr_peter[26];
     int len = 0;
-    for(int i = 0; i < 26;i++){
+
+    // Initialize both arrays
+    for(int i = 0; i < 26; i++){
         arr[i] = false;
         arr_peter[i] = false;
     }
+
+    // Populate arr_peter and count distinct letters
     while (*begin_word != '\0'){
-        arr[*begin_word-97] = true;
-        if(arr_peter[*begin_word-97] == false)
+        arr[*begin_word - 97] = true;
+        if(!arr_peter[*begin_word - 97]) // Checking if the letter is counted for the first time
             len++;
         arr_peter[*begin_word - 97] = true;
         begin_word++;
     }
+
     int count = 0;
+    // Iterate through the string and count occurrences of letters present in both arrays
     while(*begin_str != '\0'){
-        if(arr[*begin_str - 97] == true && arr_peter[*begin_str - 97] ==
-                                           true){
+        if(arr[*begin_str - 97] && arr_peter[*begin_str - 97]){
             count++;
-            arr_peter[*begin_str - 97] = false;
+            arr_peter[*begin_str - 97] = false; // Marking the letter as visited
         }
         begin_str++;
     }
