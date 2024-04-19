@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include "processing_string.h"
 
@@ -70,10 +71,10 @@ bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word){
 
 
 bool isNumb(char *s){
-    return *s > 47 && *s <58;
+    return *s >= '0' && *s <= '9';
 }
 bool isNotNumb(char *s){
-    return !(*s > 47 && *s < 58);
+    return !(*s >= '0' && *s <= '9');
 }
 void digitToStart(WordDescriptor word) {
     char *endStringBuffer = copy(word.begin, word.end+1,_stringBuffer);
@@ -205,10 +206,10 @@ int areWordsEqual_comparison(WordDescriptor w1, WordDescriptor w2){
     while(*beginW1!='\0' && *beginW2!='\0'){
         char temp_letter_W1 = *beginW1;
         char temp_letter_W2 = *beginW2;
-        if(temp_letter_W1>64 && temp_letter_W1 < 91){
+        if(temp_letter_W1>='A' && temp_letter_W1 <= 'Z'){
             temp_letter_W1+=32;
         }
-        if(temp_letter_W2>64 && temp_letter_W2 < 91){
+        if(temp_letter_W2>='A' && temp_letter_W2 <= 'Z'){
             temp_letter_W2+=32;
         }
         if(temp_letter_W1 < temp_letter_W2)
@@ -292,10 +293,10 @@ int count_palindrome(char *s){
             }
             char *start = _stringBuffer;
             for (int i = 0; i < strlen_(_stringBuffer) / 2; i++) {
-                if (*start > 64 && *start < 91) {
+                if (*start >= 'A' && *start <= 'Z') {
                     *start += 32;
                 }
-                if (*end > 64 && *end < 91) {
+                if (*end >= 'A' && *end <= 'Z') {
                     *end += 32;
                 }
                 if (*start != *end) {
@@ -396,10 +397,10 @@ void printWordBeforeFirstWordWithA(char *s){
         bool flag = false;
         char *temp_ptr = word.begin;
         while (temp_ptr!=word.end){
-            if(*temp_ptr>64 && *temp_ptr < 91){
+            if(*temp_ptr>='A' && *temp_ptr <= 'Z'){
                 *temp_ptr+=32;
             }
-            if(*temp_ptr == 97){
+            if(*temp_ptr == 'a'){
                 flag = true;
                 break;
             }
@@ -655,10 +656,10 @@ void DeletePalindrome(char *s){
         char *tempBegin = word.begin;
         int t = (tempEnd-tempBegin);
         for (int i = 0; i < t / 2; i++) {
-            if (*word.begin > 64 && *word.begin < 91) {
+            if (*word.begin >= 'A' && *word.begin <= 'Z') {
                 *word.begin += 32;
             }
-            if (*word.end-1 > 64 && *word.end-1 < 91) {
+            if (*word.end-1 >= 'A' && *word.end-1 <= 'Z') {
                 *word.end += 32;
             }
             if (*word.begin != *(word.end-1)) {
@@ -743,4 +744,3 @@ bool allLettersInString(char *s, char *word){
     }
     return count == len;
 }
-
